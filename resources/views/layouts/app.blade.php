@@ -64,7 +64,7 @@
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto " href="{{ url('/') }}">Beranda</a></li>
-          <li class="dropdown"><span>Tentang</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="#about"><span>Tentang</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="{{ url('tentang/profil') }}">Profil Rumah Sakit</a></li>
               <li><a href="{{ url('tentang/sambutan') }}">Sambutan Direktur</a></li>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TentangController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 // Default home page route
@@ -42,6 +43,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/blank', [AdminController::class, 'blank']);
     Route::get('/charts', [AdminController::class, 'charts']);
     Route::get('/tables', [AdminController::class, 'tables']);
+    Route::resource('products', ProductController::class);
 });
+
+
 
 

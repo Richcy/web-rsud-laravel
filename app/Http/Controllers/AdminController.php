@@ -4,62 +4,107 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+//import model product
+use App\Models\Admin; 
+
+//import return type View
+use Illuminate\View\View;
+
+//import return type redirectResponse
+use Illuminate\Http\RedirectResponse;
+
+use Illuminate\Support\Facades\Hash;
+
 class AdminController extends Controller
 {
-    public function index() {
-        return view('admin.index');
+
+    // Display a listing of the admins
+    public function index() : View
+    {
+        //get all admins
+        $admins = Admin::get();
+
+        //render view with admins
+        return view('admin.admins.index', compact('admins'));
     }
 
-    public function buttons() {
-        return view('admin.buttons');
+    // Show the form for creating a new admin
+    public function create() : View
+    {
+        return view('admin.admins.create');
     }
 
-    public function cards() {
-        return view('admin.cards');
+    // Store a newly created admin in the database
+    public function store(Request $request) : RedirectResponse
+    {
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'password' => 'required|string|min:8',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:admins',
+            'role' => 'required'
+        ]);
+
+        Admin::create([
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role
+        ]);
+
+        return redirect()->route('admins.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
-    public function utilitiesAnimation() {
-        return view('admin.utilities-animation');
+    public function show(string $id): View
+    {
+        //get admin by ID
+        $admin = Admin::findOrFail($id);
+
+        //render view with admin
+        return view('admin.admins.show', compact('admin'));
     }
 
-    public function utilitiesColor() {
-        return view('admin.utilities-color');
+    public function edit(string $id): View
+    {
+        //get admin by ID
+        $admin = Admin::findOrFail($id);
+
+        //render view with admin
+        return view('admin.admins.edit', compact('admin'));
     }
 
-    public function utilitiesBorder() {
-        return view('admin.utilities-border');
+    // Update an admin's details in the database
+    public function update(Request $request, $id): RedirectResponse
+    {
+        $admin = Admin::findOrFail($id);
+
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'password' => 'nullable|string|min:8',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:admins,email,' . $admin->id,
+            'role' => 'required'
+        ]);
+
+        $admin->update([
+            'username' => $request->username,
+            'password' => $request->password ? Hash::make($request->password) : $admin->password,
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role
+        ]);
+
+        return redirect()->route('admins.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
-    public function utilitiesOther() {
-        return view('admin.utilities-other');
-    }
-
-    public function login() {
-        return view('admin.login');
-    }
-
-    public function register() {
-        return view('admin.register');
-    }
-
-    public function forgotPassword() {
-        return view('admin.forgot-password');
-    }
-
-    public function page404() {
-        return view('admin.404');
-    }
-
-    public function blank() {
-        return view('admin.blank');
-    }
-
-    public function charts() {
-        return view('admin.charts');
-    }
-
-    public function tables() {
-        return view('admin.tables');
+    // Delete an admin
+    public function destroy($id) : RedirectResponse
+    {
+        //get admin by ID
+        $admin = Admin::findOrFail($id);
+        $admin->delete();
+        return redirect()->route('admins.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }
 

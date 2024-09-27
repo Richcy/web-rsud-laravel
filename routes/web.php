@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminViewController;
+use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\ProductController;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
 // Default home page route
@@ -26,24 +29,32 @@ Route::prefix('tentang')->group(function () {
     Route::get('/struktur', [TentangController::class, 'struktur']);
 });
 
-
-// Group routes with the /admin prefix
 Route::prefix('admin')->group(function () {
-    Route::get('/index', [AdminController::class, 'index']);
-    Route::get('/buttons', [AdminController::class, 'buttons']);
-    Route::get('/cards', [AdminController::class, 'cards']);
-    Route::get('/animation', [AdminController::class, 'utilitiesAnimation']);
-    Route::get('/color', [AdminController::class, 'utilitiesColor']);
-    Route::get('/border', [AdminController::class, 'utilitiesBorder']);
-    Route::get('/other', [AdminController::class, 'utilitiesOther']);
-    Route::get('/login', [AdminController::class, 'login']);
-    Route::get('/register', [AdminController::class, 'register']);
-    Route::get('/password', [AdminController::class, 'forgotPassword']);
-    Route::get('/404', [AdminController::class, 'page404']);
-    Route::get('/blank', [AdminController::class, 'blank']);
-    Route::get('/charts', [AdminController::class, 'charts']);
-    Route::get('/tables', [AdminController::class, 'tables']);
-    Route::resource('products', ProductController::class);
+    // Admin Authentication Routes
+    Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('login', [AdminAuthController::class, 'login']);
+    Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
+    // Admin Routes (Protected by auth:admin middleware)
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('/index', [AdminViewController::class, 'index'])->name('admin.index');
+        Route::get('/buttons', [AdminViewController::class, 'buttons']);
+        Route::get('/cards', [AdminViewController::class, 'cards']);
+        Route::get('/animation', [AdminViewController::class, 'utilitiesAnimation']);
+        Route::get('/color', [AdminViewController::class, 'utilitiesColor']);
+        Route::get('/border', [AdminViewController::class, 'utilitiesBorder']);
+        Route::get('/other', [AdminViewController::class, 'utilitiesOther']);
+        Route::get('/register', [AdminViewController::class, 'register']);
+        Route::get('/password', [AdminViewController::class, 'forgotPassword']);
+        Route::get('/404', [AdminViewController::class, 'page404']);
+        Route::get('/blank', [AdminViewController::class, 'blank']);
+        Route::get('/charts', [AdminViewController::class, 'charts']);
+        Route::get('/tables', [AdminViewController::class, 'tables']);
+        
+        // Resource Routes
+        Route::resource('products', ProductController::class);
+        Route::resource('admins', AdminController::class);
+    });
 });
 
 

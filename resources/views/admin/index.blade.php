@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('admin.layouts.dashboard')
 
 @section('title', 'Admin | Dashboard')
 
@@ -315,10 +315,10 @@
                                 </div>
                             </div>
 
-                            <!-- Approach -->
+                            <!-- dashboardroach -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Development dashboardroach</h6>
                                 </div>
                                 <div class="card-body">
                                     <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce

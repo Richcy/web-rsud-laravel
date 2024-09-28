@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Define a custom redirect for unauthenticated admin routes
+        $this->app['router']->aliasMiddleware('auth.admin', \App\Http\Middleware\AdminAuthMiddleware::class);
     }
 }

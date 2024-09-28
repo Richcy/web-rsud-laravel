@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('admin.layouts.gate')
 
-@include('admin.layouts.header')
+@section('title', 'Admin | Forgot Password')
 
-@section('Title', 'Admin | Forgot Password')
+@section('content')
 
 <body class="bg-gradient-primary">
 
@@ -23,7 +22,7 @@
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
-                                        <p class="mb-4">We get it, stuff happens. Just enter your email address below
+                                        <p class="mb-4">We get it, stuff hdashboardens. Just enter your email address below
                                             and we'll send you a link to reset your password!</p>
                                     </div>
                                     <form class="user">
@@ -54,17 +53,4 @@
         </div>
 
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-</body>
-
-</html>
+@endsection

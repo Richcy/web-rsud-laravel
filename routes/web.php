@@ -35,8 +35,8 @@ Route::prefix('admin')->group(function () {
     Route::post('login', [AdminAuthController::class, 'login']);
     Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-    // Admin Routes (Protected by auth:admin middleware)
-    Route::middleware('auth:admin')->group(function () {
+    // Admin Routes (Protected by auth.admin custom middleware)
+    Route::middleware('auth.admin')->group(function () {
         Route::get('/index', [AdminViewController::class, 'index'])->name('admin.index');
         Route::get('/buttons', [AdminViewController::class, 'buttons']);
         Route::get('/cards', [AdminViewController::class, 'cards']);

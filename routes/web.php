@@ -3,8 +3,9 @@
 use App\Http\Controllers\AdminViewController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\TentangController;
+use App\Http\Controllers\TentangViewController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ServiceController;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -19,14 +20,14 @@ Route::get('/inner', function () {
 
 // Group routes with the /tentang prefix
 Route::prefix('tentang')->group(function () {
-    Route::get('/denah', [TentangController::class, 'denah']);
-    Route::get('/hak', [TentangController::class, 'hak']);
-    Route::get('/maklumat', [TentangController::class, 'maklumat']);
-    Route::get('/mutu', [TentangController::class, 'mutu']);
-    Route::get('/profil', [TentangController::class, 'profil']);
-    Route::get('/sambutan', [TentangController::class, 'sambutan']);
-    Route::get('/standard', [TentangController::class, 'standard']);
-    Route::get('/struktur', [TentangController::class, 'struktur']);
+    Route::get('/denah', [TentangViewController::class, 'denah']);
+    Route::get('/hak', [TentangViewController::class, 'hak']);
+    Route::get('/maklumat', [TentangViewController::class, 'maklumat']);
+    Route::get('/mutu', [TentangViewController::class, 'mutu']);
+    Route::get('/profil', [TentangViewController::class, 'profil']);
+    Route::get('/sambutan', [TentangViewController::class, 'sambutan']);
+    Route::get('/standard', [TentangViewController::class, 'standard']);
+    Route::get('/struktur', [TentangViewController::class, 'struktur']);
 });
 
 Route::prefix('admin')->group(function () {
@@ -34,6 +35,8 @@ Route::prefix('admin')->group(function () {
     Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
     Route::post('login', [AdminAuthController::class, 'login']);
     Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+    Route::get('/register', [AdminViewController::class, 'register']);
+    Route::get('/forgot-password', [AdminViewController::class, 'forgotPassword']);
 
     // Admin Routes (Protected by auth.admin custom middleware)
     Route::middleware('auth.admin')->group(function () {
@@ -44,12 +47,22 @@ Route::prefix('admin')->group(function () {
         Route::get('/color', [AdminViewController::class, 'utilitiesColor']);
         Route::get('/border', [AdminViewController::class, 'utilitiesBorder']);
         Route::get('/other', [AdminViewController::class, 'utilitiesOther']);
-        Route::get('/register', [AdminViewController::class, 'register']);
-        Route::get('/password', [AdminViewController::class, 'forgotPassword']);
         Route::get('/404', [AdminViewController::class, 'page404']);
         Route::get('/blank', [AdminViewController::class, 'blank']);
         Route::get('/charts', [AdminViewController::class, 'charts']);
         Route::get('/tables', [AdminViewController::class, 'tables']);
+        Route::get('/organization', [AdminViewController::class, 'aboutOrganization']);
+        Route::get('/sketch', [AdminViewController::class, 'aboutSketch']);
+        Route::get('/quality', [AdminViewController::class, 'aboutQuality']);
+        Route::get('/notice', [AdminViewController::class, 'aboutNotice']);
+        Route::get('/standard', [AdminViewController::class, 'aboutStandard']);
+        Route::get('/right', [AdminViewController::class, 'aboutRight']);
+            // Route for getting the service by type
+        Route::get('/{type}', [ServiceController::class, 'show'])->name('admin.tentang.type');
+
+        // Route for updating the service by type
+        Route::put('/{type}', [ServiceController::class, 'update'])->name('admin.tentang.update');
+
         
         // Resource Routes
         Route::resource('products', ProductController::class);

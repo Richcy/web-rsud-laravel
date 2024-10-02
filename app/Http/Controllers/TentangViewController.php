@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TentangController extends Controller
+class TentangViewController extends Controller
 {
 
     public function denah() {

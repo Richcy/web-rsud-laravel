@@ -61,4 +61,36 @@ class AdminViewController extends Controller
     public function tables() {
         return view('admin.tables');
     }
+
+    public function aboutProfile() {
+        return view('admin.tentang.profil');
+    }
+
+    public function aboutDirectur() {
+        return view('admin.tentang.direktur');
+    }
+
+    public function aboutOrganization() {
+        return view('admin.tentang.organisasi');
+    }
+
+    public function aboutSketch() {
+        return view('admin.tentang.denah');
+    }
+
+    public function aboutQuality() {
+        return view('admin.tentang.mutu');
+    }
+
+    public function aboutNotice() {
+        return view('admin.tentang.maklumat');
+    }
+
+    public function aboutStandard() {
+        return view('admin.tentang.standard');
+    }
+
+    public function aboutRight() {
+        return view('admin.tentang.hak');
+    }
 }

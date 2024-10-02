@@ -70,6 +70,27 @@
         </div>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTentang"
+            aria-expanded="true" aria-controls="collapseTentang">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Tentang</span>
+        </a>
+        <div id="collapseTentang" class="collapse" aria-labelledby="headingTentang" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Tentang:</h6>
+                <a class="collapse-item" href="{{ url('/admin/aboutProfile') }}">Profil Rumah Sakit</a>
+                <a class="collapse-item" href="{{ url('/admin/aboutDirectur') }}">Sambutan Direktur</a>
+                <a class="collapse-item" href="{{ url('/admin/aboutOrganization') }}">Struktur Organisasi</a>
+                <a class="collapse-item" href="{{ url('/admin/aboutSketch') }}">Denah</a>
+                <a class="collapse-item" href="{{ url('/admin/aboutQuality') }}">Pelayanan Mutu</a>
+                <a class="collapse-item" href="{{ url('/admin/aboutNotice') }}">Maklumat Pelayanan</a>
+                <a class="collapse-item" href="{{ url('/admin/aboutStandard') }}">Standard Pelayanan</a>
+                <a class="collapse-item" href="{{ url('/admin/aboutRight') }}">Hak dan Kewajiban</a>
+            </div>
+        </div>
+    </li>
+
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -344,7 +365,13 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Richcy Dian Sukma</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                @if(Auth::guard('admin')->check())
+                                    Welcome, {{ Auth::guard('admin')->user()->name }}!
+                                @else
+                                    Not logged In
+                                @endif
+                                </span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>

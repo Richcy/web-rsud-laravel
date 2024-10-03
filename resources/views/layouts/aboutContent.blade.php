@@ -17,10 +17,12 @@
     <!-- Inner Page Section -->
     <section class="inner-page">
       <div class="container">
+      <img src="{{ asset('storage/' . $service->banner) }}" alt="{{ $service->type }}" class="img-fluid">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, provident! Eius debitis, velit vero nostrum reprehenderit voluptatem obcaecati. Velit, ducimus! Sapiente, quis. Consequuntur ex animi eveniet quidem corporis placeat omnis.
+        {{ $service->description }}
         </p>
       </div>
+      
     </section>
 
 </main><!-- End #main -->

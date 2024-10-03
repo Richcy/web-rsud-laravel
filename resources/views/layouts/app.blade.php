@@ -66,29 +66,29 @@
           <li><a class="nav-link scrollto " href="{{ url('/') }}">Beranda</a></li>
           <li class="dropdown"><a href="#about"><span>Tentang</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="{{ url('tentang/profil') }}">Profil Rumah Sakit</a></li>
-              <li><a href="{{ url('tentang/sambutan') }}">Sambutan Direktur</a></li>
-              <li><a href="{{ url('tentang/struktur') }}">Struktur Organisasi</a></li>
-              <li><a href="{{ url('tentang/denah') }}">Denah Rumah Sakit</a></li>
-              <li><a href="{{ url('tentang/mutu') }}">Penilaian Mutu</a></li>
-              <li><a href="{{ url('tentang/hak') }}">Hak dan Kewajiban Pasien</a></li>
-              <li><a href="{{ url('tentang/maklumat') }}">Maklumat Pelayanan</a></li>
-              <li><a href="{{ url('tentang/standard') }}">Standard Pelayanan</a></li>
+              <li><a href="{{ url('/profil-rumah-sakit') }}">Profil Rumah Sakit</a></li>
+              <li><a href="{{ url('/sambutan-direktur') }}">Sambutan Direktur</a></li>
+              <li><a href="{{ url('/struktur-organisasi') }}">Struktur Organisasi</a></li>
+              <li><a href="{{ url('/denah-rumah-sakit') }}">Denah Rumah Sakit</a></li>
+              <li><a href="{{ url('/penilaian-mutu') }}">Penilaian Mutu</a></li>
+              <li><a href="{{ url('/hak-dan-kewajiban-pasien') }}">Hak dan Kewajiban Pasien</a></li>
+              <li><a href="{{ url('/maklumat-pelayanan') }}">Maklumat Pelayanan</a></li>
+              <li><a href="{{ url('/standard-pelayanan') }}">Standard Pelayanan</a></li>
             </ul>
           </li>
           <li class="dropdown"><a href="#services"><span>Layanan</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Layanan Unggulan</a></li>
-              <li><a href="#">Instalasi Rawat Jalan</a></li>
-              <li><a href="#">Instalasi Rawat Inap</a></li>
-              <li><a href="#">Instalasi Gawat Darurat</a></li>
-              <li><a href="#">Laboratorium</a></li>
-              <li><a href="#">Hemodialisis</a></li>
-              <li><a href="#">Rehabilitasi Medik</a></li>
-              <li><a href="#">Radiologi</a></li>
-              <li><a href="#">Farmasi</a></li>
-              <li><a href="#">Ambulance</a></li>
-              <li><a href="#">Pengaduan</a></li>
+              <li><a href="{{ url('/layanan-unggulan') }}">Layanan Unggulan</a></li>
+              <li><a href="{{ url('/instalasi-rawat-jalan') }}">Instalasi Rawat Jalan</a></li>
+              <li><a href="{{ url('/instalasi-rawat-inap') }}">Instalasi Rawat Inap</a></li>
+              <li><a href="{{ url('/instalasi-gawat-darurat') }}">Instalasi Gawat Darurat</a></li>
+              <li><a href="{{ url('/laboratorium') }}">Laboratorium</a></li>
+              <li><a href="{{ url('/hemodialisis') }}">Hemodialisis</a></li>
+              <li><a href="{{ url('/rehabilitasi-medik') }}">Rehabilitasi Medik</a></li>
+              <li><a href="{{ url('/radiologi') }}">Radiologi</a></li>
+              <li><a href="{{ url('/farmasi') }}">Farmasi</a></li>
+              <li><a href="{{ url('/ambulan') }}">Ambulance</a></li>
+              <li><a href="{{ url('/pengaduan') }}">Pengaduan</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="#doctors">Doctors</a></li>

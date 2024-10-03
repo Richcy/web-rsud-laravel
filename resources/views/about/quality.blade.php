@@ -4,6 +4,6 @@
 
 @section('content')
 
-@include('layouts.tentang', ['aboutTitle' => 'Penilaian Mutu'])
+@include('layouts.aboutContent', ['aboutTitle' => 'Penilaian Mutu'])
 
 @endsection

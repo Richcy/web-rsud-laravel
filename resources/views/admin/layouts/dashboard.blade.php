@@ -79,14 +79,38 @@
         <div id="collapseTentang" class="collapse" aria-labelledby="headingTentang" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Tentang:</h6>
-                <a class="collapse-item" href="{{ url('/admin/aboutProfile') }}">Profil Rumah Sakit</a>
-                <a class="collapse-item" href="{{ url('/admin/aboutDirectur') }}">Sambutan Direktur</a>
-                <a class="collapse-item" href="{{ url('/admin/aboutOrganization') }}">Struktur Organisasi</a>
-                <a class="collapse-item" href="{{ url('/admin/aboutSketch') }}">Denah</a>
-                <a class="collapse-item" href="{{ url('/admin/aboutQuality') }}">Pelayanan Mutu</a>
-                <a class="collapse-item" href="{{ url('/admin/aboutNotice') }}">Maklumat Pelayanan</a>
-                <a class="collapse-item" href="{{ url('/admin/aboutStandard') }}">Standard Pelayanan</a>
-                <a class="collapse-item" href="{{ url('/admin/aboutRight') }}">Hak dan Kewajiban</a>
+                <a class="collapse-item" href="{{ url('/admin/profil-rumah-sakit') }}">Profil Rumah Sakit</a>
+                <a class="collapse-item" href="{{ url('/admin/sambutan-direktur') }}">Sambutan Direktur</a>
+                <a class="collapse-item" href="{{ url('/admin/struktur-organisasi') }}">Struktur Organisasi</a>
+                <a class="collapse-item" href="{{ url('/admin/denah-rumah-sakit') }}">Denah</a>
+                <a class="collapse-item" href="{{ url('/admin/penilaian-mutu') }}">Penilaian Mutu</a>
+                <a class="collapse-item" href="{{ url('/admin/hak-dan-kewajiban-pasien') }}">Maklumat Pelayanan</a>
+                <a class="collapse-item" href="{{ url('/admin/maklumat-pelayanan') }}">Standard Pelayanan</a>
+                <a class="collapse-item" href="{{ url('/admin/standard-pelayanan') }}">Hak dan Kewajiban</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayanan"
+            aria-expanded="true" aria-controls="collapseLayanan">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Layanan</span>
+        </a>
+        <div id="collapseLayanan" class="collapse" aria-labelledby="headingLayanan" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Layanan:</h6>
+                    <a class="collapse-item" href="{{ url('/admin/layanan-unggulan') }}">Layanan Unggulan</a>
+                    <a class="collapse-item" href="{{ url('/admin/instalasi-rawat-jalan') }}">Instalasi Rawat Jalan</a>
+                    <a class="collapse-item" href="{{ url('/admin/instalasi-rawat-inap') }}">Instalasi Rawat Inap</a>
+                    <a class="collapse-item" href="{{ url('/admin/instalasi-gawat-darurat') }}">Instalasi Gawat Darurat</a>
+                    <a class="collapse-item" href="{{ url('/admin/laboratorium') }}">Laboratorium</a>
+                    <a class="collapse-item" href="{{ url('/admin/hemodialisis') }}">Hemodialisis</a>
+                    <a class="collapse-item" href="{{ url('/admin/rehabilitasi-medik') }}">Rehabilitasi Medik</a>
+                    <a class="collapse-item" href="{{ url('/admin/radiologi') }}">Radiologi</a>
+                    <a class="collapse-item" href="{{ url('/admin/farmasi') }}">Farmasi</a>
+                    <a class="collapse-item" href="{{ url('/admin/ambulan') }}">Ambulance</a>
+                    <a class="collapse-item" href="{{ url('/admin/pengaduan') }}">Pengaduan</a>
             </div>
         </div>
     </li>

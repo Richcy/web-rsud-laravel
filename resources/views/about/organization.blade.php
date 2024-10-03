@@ -4,6 +4,6 @@
 
 @section('content')
 
-@include('layouts.tentang', ['aboutTitle' => 'Struktur Organisasi'])
+@include('layouts.aboutContent', ['aboutTitle' => 'Struktur Organisasi'])
 
 @endsection

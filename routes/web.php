@@ -3,9 +3,9 @@
 use App\Http\Controllers\AdminViewController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\TentangViewController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\UserViewController;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -18,17 +18,7 @@ Route::get('/inner', function () {
     return view('inner-page');
 });
 
-// Group routes with the /tentang prefix
-Route::prefix('tentang')->group(function () {
-    Route::get('/denah', [TentangViewController::class, 'denah']);
-    Route::get('/hak', [TentangViewController::class, 'hak']);
-    Route::get('/maklumat', [TentangViewController::class, 'maklumat']);
-    Route::get('/mutu', [TentangViewController::class, 'mutu']);
-    Route::get('/profil', [TentangViewController::class, 'profil']);
-    Route::get('/sambutan', [TentangViewController::class, 'sambutan']);
-    Route::get('/standard', [TentangViewController::class, 'standard']);
-    Route::get('/struktur', [TentangViewController::class, 'struktur']);
-});
+Route::get('/{slug}', [UserViewController::class, 'showPage'])->name('page.show');
 
 Route::prefix('admin')->group(function () {
     // Admin Authentication Routes
@@ -51,17 +41,17 @@ Route::prefix('admin')->group(function () {
         Route::get('/blank', [AdminViewController::class, 'blank']);
         Route::get('/charts', [AdminViewController::class, 'charts']);
         Route::get('/tables', [AdminViewController::class, 'tables']);
-        Route::get('/organization', [AdminViewController::class, 'aboutOrganization']);
-        Route::get('/sketch', [AdminViewController::class, 'aboutSketch']);
-        Route::get('/quality', [AdminViewController::class, 'aboutQuality']);
-        Route::get('/notice', [AdminViewController::class, 'aboutNotice']);
-        Route::get('/standard', [AdminViewController::class, 'aboutStandard']);
-        Route::get('/right', [AdminViewController::class, 'aboutRight']);
             // Route for getting the service by type
-        Route::get('/{type}', [ServiceController::class, 'show'])->name('admin.tentang.type');
+        Route::get('/{type}', [ServiceController::class, 'showAbout'])->name('admin.about.type');
 
         // Route for updating the service by type
-        Route::put('/{type}', [ServiceController::class, 'update'])->name('admin.tentang.update');
+        Route::put('/{type}', [ServiceController::class, 'updateAbout'])->name('admin.about.update');
+
+        // Route for getting the service by type
+        Route::get('/{type}', [ServiceController::class, 'showService'])->name('admin.service.type');
+
+        // Route for updating the service by type
+        Route::put('/{type}', [ServiceController::class, 'updateService'])->name('admin.service.update');
 
         
         // Resource Routes

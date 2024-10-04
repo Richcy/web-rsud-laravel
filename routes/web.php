@@ -42,16 +42,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/charts', [AdminViewController::class, 'charts']);
         Route::get('/tables', [AdminViewController::class, 'tables']);
             // Route for getting the service by type
-        Route::get('/{type}', [ServiceController::class, 'showAbout'])->name('admin.about.type');
+        Route::get('/{slug}', [ServiceController::class, 'showPage'])->name('admin.page.type');
 
         // Route for updating the service by type
-        Route::put('/{type}', [ServiceController::class, 'updateAbout'])->name('admin.about.update');
-
-        // Route for getting the service by type
-        Route::get('/{type}', [ServiceController::class, 'showService'])->name('admin.service.type');
-
-        // Route for updating the service by type
-        Route::put('/{type}', [ServiceController::class, 'updateService'])->name('admin.service.update');
+        Route::put('/{slug}', [ServiceController::class, 'updatePage'])->name('admin.page.update');
 
         
         // Resource Routes

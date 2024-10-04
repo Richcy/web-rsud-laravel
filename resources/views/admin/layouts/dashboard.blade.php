@@ -493,6 +493,28 @@
     <script src="{{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
 
     @yield('script')
+
+    <script src="{{ asset('admin/vendor/tinymce/tinymce.min.js') }}"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#description',
+            license_key: 'gpl',
+            height: 300,
+            plugins: 'lists link image preview',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | link image',
+        });
+
+    </script>
+
+    <script>
+        document.getElementById('banner').onchange = function (event) {
+            const [file] = event.target.files;
+            if (file) {
+                document.getElementById('banner-preview').src = URL.createObjectURL(file);
+            }
+        };
+    </script>
     
 </body>
 

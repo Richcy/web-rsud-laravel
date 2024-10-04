@@ -8,7 +8,7 @@
         {{ session('success') }}
     </div>
 @endif
-<form action="{{ route('admin.about.update', ['type' => $service->type]) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.page.type', ['slug' => $service->type]) }}" method="POST" enctype="multipart/form-data">
 
     @csrf
     @method('PUT')

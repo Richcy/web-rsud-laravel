@@ -52,9 +52,6 @@ class ServiceController extends Controller
             // Dynamically render the appropriate view based on the folder and file mapping
             return view('admin.' . $pageInfo['folder'] . '.' . $pageInfo['file'], compact('service'));
         }
-
-        // If no match is found, return a 404 error
-        return abort(404);
     }
 
 

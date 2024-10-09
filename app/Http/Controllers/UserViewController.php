@@ -4,9 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\Doctor;
 
 class UserViewController extends Controller
 {
+
+    public function index() 
+    {
+        // Retrieve all required services in one query
+        $services = Service::whereIn('type', ['aboutDirectur', 'aboutNotice', 'aboutQuality', 'aboutOrganization'])->get();
+
+        // Group services by their 'type'
+        $groupedServices = $services->keyBy('type');
+
+        // Pass the grouped services to the view
+        return view('index', [
+            'services' => Service::all(),
+            'directur' => $groupedServices->get('aboutDirectur'),
+            'notice' => $groupedServices->get('aboutNotice'),
+            'quality' => $groupedServices->get('aboutQuality'),
+            'organization' => $groupedServices->get('aboutOrganization')
+        ]);
+    }
 
     public function showPage(string $slug)
     {
@@ -35,6 +54,10 @@ class UserViewController extends Controller
             'farmasi' => 'servicePharmacy',
             'ambulan' => 'serviceAmbulance',
             'pengaduan' => 'serviceComplaint'
+        ];
+
+        $doctorPages = [
+            'dokter' => 'doctor',
         ];
 
          // Check if the slug is in the 'about' or 'service' array
@@ -90,7 +113,16 @@ class UserViewController extends Controller
 
             // Dynamically render a view based on the type
             return view('service.' . $file, compact('service'));
+        } else {
+
+            $file = $doctorPages[$slug];
+
+            $doctor = Doctor::all();
+
+            return view('doctor.' . $file, compact('doctor'));
         }
+
+
 
         // If no match is found, return 404
         return abort(404);

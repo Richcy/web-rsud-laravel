@@ -74,17 +74,17 @@
           <div class="col-lg-8">
             <div class="tab-content">
               <div class="tab-pane active show" id="tab-1">
-                <img src="{{ asset('img/departments-1.jpg') }}" alt="" class="img-fluid">
-                <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
+                <img src="{{ asset('storage/' .$directur->banner) }}" alt="" class="img-fluid">
+                <p>{{ $directur->description }}</p>
               </div>
               <div class="tab-pane" id="tab-2">
-                <img src="{{ asset('img/departments-2.jpg') }}" alt="" class="img-fluid">
+                <img src="{{ asset('storage/' .$notice->banner) }}" alt="" class="img-fluid">
               </div>
               <div class="tab-pane" id="tab-3">
-                <img src="{{ asset('img/departments-3.jpg') }}" alt="" class="img-fluid">
+                <img src="{{ asset('storage/' .$quality->banner) }}" alt="" class="img-fluid">
               </div>
               <div class="tab-pane" id="tab-4">
-                <img src="{{ asset('img/departments-4.jpg') }}" alt="" class="img-fluid">
+                <img src="{{ asset('storage/' .$organization->banner) }}" alt="" class="img-fluid">
               </div>
             </div>
           </div>
@@ -103,28 +103,40 @@
 
         <div class="row">
           <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon"><i class="fas fa-heartbeat"></i></div>
-            <h4 class="title"><a href="">Layanan Unggulan</a></h4>
+            <a href="{{ url('/layanan-unggulan') }}">
+              <div class="icon"><i class="fas fa-notes-medical"></i></div>
+            </a>
+            <h4 class="title"><a href="{{ url('/layanan-unggulan') }}">Layanan Unggulan</a></h4>
           </div>
           <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon"><i class="fas fa-pills"></i></div>
-            <h4 class="title"><a href="">Instalasi Rawat Jalan</a></h4>
+            <a href="{{ url('/instalasi-rawat-jalan') }}">
+              <div class="icon"><i class="fas fa-stethoscope"></i></div>
+            </a>
+            <h4 class="title"><a href="{{ url('/instalasi-rawat-jalan') }}">Instalasi Rawat Jalan</a></h4>
           </div>
           <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon"><i class="fas fa-hospital-user"></i></div>
-            <h4 class="title"><a href="">Instalasi Rawat Inap</a></h4>
+            <a href="{{ url('/instalasi-rawat-inap') }}">
+              <div class="icon"><i class="fas fa-hospital"></i></div>
+            </a>
+            <h4 class="title"><a href="{ url('/instalasi-rawat-inap') }}">Instalasi Rawat Inap</a></h4>
           </div>
           <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon"><i class="fas fa-dna"></i></div>
-            <h4 class="title"><a href="">Instalasi Gawat Darurat</a></h4>
+            <a href="{{ url('/instalasi-gawat-darurat') }}">
+              <div class="icon"><i class="fas fa-ambulance"></i></div>
+            </a>
+            <h4 class="title"><a href="{{ url('/instalasi-gawat-darurat') }}">Instalasi Gawat Darurat</a></h4>
           </div>
           <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon"><i class="fas fa-wheelchair"></i></div>
-            <h4 class="title"><a href="">Laboratorium</a></h4>
+            <a href="{{ url('/laboratorium') }}">
+              <div class="icon"><i class="fas fa-dna"></i></div>
+            </a>
+            <h4 class="title"><a href="{{ url('/laboratorium') }}">Laboratorium</a></h4>
           </div>
           <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon"><i class="fas fa-notes-medical"></i></div>
-            <h4 class="title"><a href="">Radiologi</a></h4>
+            <a href="{{ url('/radiologi') }}">
+              <div class="icon"><i class="fas fa-medkit"></i></div>
+            </a>
+            <h4 class="title"><a href="{{ url('/radiologi') }}">Radiologi</a></h4>
           </div>
         </div>
 

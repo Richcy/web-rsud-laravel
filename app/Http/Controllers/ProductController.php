@@ -2,19 +2,10 @@
 
 namespace App\Http\Controllers;
 
-//import model product
-use App\Models\Product; 
-
-//import return type View
+use App\Models\Product;
 use Illuminate\View\View;
-
-//import return type redirectResponse
 use Illuminate\Http\RedirectResponse;
-
-//import Http Request
 use Illuminate\Http\Request;
-
-//import Facades Storage
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -24,7 +15,7 @@ class ProductController extends Controller
      *
      * @return void
      */
-    public function index() : View
+    public function index(): View
     {
         //get all products
         $products = Product::get();
@@ -94,7 +85,7 @@ class ProductController extends Controller
         //render view with product
         return view('admin.products.edit', compact('product'));
     }
-        
+
     /**
      * update
      *
@@ -124,7 +115,7 @@ class ProductController extends Controller
             $image->storeAs('public/products', $image->hashName());
 
             //delete old image
-            Storage::delete('public/products/'.$product->image);
+            Storage::delete('public/products/' . $product->image);
 
             //update product with new image
             $product->update([
@@ -134,7 +125,6 @@ class ProductController extends Controller
                 'price'         => $request->price,
                 'stock'         => $request->stock
             ]);
-
         } else {
 
             //update product without image
@@ -156,7 +146,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         //delete image
-        Storage::delete('public/products/'. $product->image);
+        Storage::delete('public/products/' . $product->image);
 
         //delete product
         $product->delete();

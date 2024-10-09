@@ -6,13 +6,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserViewController;
-use App\Models\Admin;
+use App\Http\Controllers\DoctorController;
 use Illuminate\Support\Facades\Route;
 
 // Default home page route
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [UserViewController::class, 'index']);
 
 Route::get('/inner', function () {
     return view('inner-page');
@@ -41,6 +39,12 @@ Route::prefix('admin')->group(function () {
         Route::get('/blank', [AdminViewController::class, 'blank']);
         Route::get('/charts', [AdminViewController::class, 'charts']);
         Route::get('/tables', [AdminViewController::class, 'tables']);
+
+        // Resource Routes
+        Route::resource('products', ProductController::class);
+        Route::resource('admins', AdminController::class);
+        Route::resource('dokter', DoctorController::class);
+
             // Route for getting the service by type
         Route::get('/{slug}', [ServiceController::class, 'showPage'])->name('admin.page.type');
 
@@ -48,9 +52,7 @@ Route::prefix('admin')->group(function () {
         Route::put('/{slug}', [ServiceController::class, 'updatePage'])->name('admin.page.update');
 
         
-        // Resource Routes
-        Route::resource('products', ProductController::class);
-        Route::resource('admins', AdminController::class);
+       
     });
 });
 

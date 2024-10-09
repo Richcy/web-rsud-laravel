@@ -115,6 +115,20 @@
         </div>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDokter"
+            aria-expanded="true" aria-controls="collapseDokter">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Dokter</span>
+        </a>
+        <div id="collapseDokter" class="collapse" aria-labelledby="headingDokter" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Dokter:</h6>
+                <a class="collapse-item" href="{{ url('/admin/dokter') }}">Dokter</a>
+            </div>
+        </div>
+    </li>
+
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"

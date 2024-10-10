@@ -9,7 +9,7 @@ use App\Models\Doctor;
 class UserViewController extends Controller
 {
 
-    public function index() 
+    public function index()
     {
         // Retrieve all required services in one query
         $services = Service::whereIn('type', ['aboutDirectur', 'aboutNotice', 'aboutQuality', 'aboutOrganization'])->get();
@@ -29,7 +29,7 @@ class UserViewController extends Controller
 
     public function showPage(string $slug)
     {
-         // Create an associative array to map the values
+        // Create an associative array to map the values
         $aboutPages = [
             'profil-rumah-sakit' => 'aboutProfile',
             'sambutan-direktur' => 'aboutDirectur',
@@ -60,7 +60,7 @@ class UserViewController extends Controller
             'dokter' => 'doctor',
         ];
 
-         // Check if the slug is in the 'about' or 'service' array
+        // Check if the slug is in the 'about' or 'service' array
         if (array_key_exists($slug, $aboutPages)) {
             $type = $aboutPages[$slug];
             $service = Service::where('type', $type)->first();
@@ -79,13 +79,12 @@ class UserViewController extends Controller
                 'aboutNotice' => 'notice',
                 'aboutStandard' => 'standard'
             ];
-    
+
             // Use the mapping to get the type; default to $type if not found
             $file = $aboutFiles[$type] ?? $type; // Use null coalescing operator
 
             // Dynamically render a view based on the type
             return view('about.' . $file, compact('service'));
-
         } elseif (array_key_exists($slug, $servicePages)) {
             $type = $servicePages[$slug];
             $service = Service::where('type', $type)->first();
@@ -117,15 +116,12 @@ class UserViewController extends Controller
 
             $file = $doctorPages[$slug];
 
-            $doctor = Doctor::all();
+            $doctors = Doctor::all();
 
-            return view('doctor.' . $file, compact('doctor'));
+            return view('doctor.' . $file, compact('doctors'));
         }
-
-
 
         // If no match is found, return 404
         return abort(404);
     }
-
 }

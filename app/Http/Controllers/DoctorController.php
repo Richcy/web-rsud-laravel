@@ -51,8 +51,9 @@ class DoctorController extends Controller
         ]);
 
         $img = $request->file('img');
-        $imgname = $request->name . '.' . $request->file('img')->getClientOriginalExtension();
-        $img->storeAs('public/doctors', $imgname);
+        $doctorName = $request->name;
+        $imgName = $doctorName . '.' . $request->file('img')->getClientOriginalExtension();
+        $path = $img->storeAs('doctors', $imgName, 'public');
 
         Doctor::create([
             'name' => $request->name,
@@ -65,7 +66,7 @@ class DoctorController extends Controller
             'nip' => $request->nip,
             'str' => $request->str,
             'sip' => $request->sip,
-            'img' => $img,
+            'img' => $path,
             'status' => $request->status,
             'lang' => $request->lang,
         ]);

@@ -87,7 +87,9 @@
                             <td>{{ $doctor->alumni }}</td>
                             <td>{{ $doctor->nip }}</td>
                             <td>{{ $doctor->str }}</td>
-                            <td>{{ $doctor->img }}</td>
+                            <td class="text-center">
+                                <img src="{{ asset('/storage/doctors/'.$doctor->img) }}" class="rounded" style="width: 150px">
+                            </td>
                             <td>{{ $doctor->status }}</td>
                             <td>{{ $doctor->lang }}</td>
                             <td class="text-center">

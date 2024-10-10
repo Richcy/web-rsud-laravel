@@ -14,7 +14,7 @@
         @method('PUT')
         <div class="form-group mb-3">
             <label class="font-weight-bold">NAME</label>
-            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Masukkan name">
+            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $doctor->name) }}" placeholder="Masukkan name">
 
             <!-- error message untuk name -->
             @error('name')
@@ -26,7 +26,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">FIELD</label>
-            <input type="text" class="form-control @error('field') is-invalid @enderror" name="field" value="{{ old('field') }}" placeholder="Masukkan field">
+            <input type="text" class="form-control @error('field') is-invalid @enderror" name="field" value="{{ old('field', $doctor->field) }}" placeholder="Masukkan field">
 
             <!-- error message untuk name -->
             @error('field')
@@ -38,7 +38,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">OFFICE</label>
-            <input type="text" class="form-control @error('office') is-invalid @enderror" name="office" value="{{ old('office') }}" placeholder="Masukkan office">
+            <input type="text" class="form-control @error('office') is-invalid @enderror" name="office" value="{{ old('office', $doctor->office) }}" placeholder="Masukkan office">
 
             <!-- error message untuk name -->
             @error('office')
@@ -50,7 +50,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">EXPERIENCE</label>
-            <input type="text" class="form-control @error('experience') is-invalid @enderror" name="experience" value="{{ old('experience') }}" placeholder="Masukkan experience">
+            <input type="text" class="form-control @error('experience') is-invalid @enderror" name="experience" value="{{ old('experience', $doctor->experience) }}" placeholder="Masukkan experience">
 
             <!-- error message untuk experience -->
             @error('experience')
@@ -62,7 +62,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">YEAR</label>
-            <input type="text" class="form-control @error('year') is-invalid @enderror" name="year" value="{{ old('year') }}" placeholder="Masukkan year">
+            <input type="text" class="form-control @error('year') is-invalid @enderror" name="year" value="{{ old('year', $doctor->year) }}" placeholder="Masukkan year">
 
             <!-- error message untuk year -->
             @error('year')
@@ -74,7 +74,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">MONTH</label>
-            <input type="text" class="form-control @error('month') is-invalid @enderror" name="month" value="{{ old('month') }}" placeholder="Masukkan month">
+            <input type="text" class="form-control @error('month') is-invalid @enderror" name="month" value="{{ old('month', $doctor->month) }}" placeholder="Masukkan month">
 
             <!-- error message untuk month -->
             @error('month')
@@ -86,7 +86,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">ALUMNI</label>
-            <input type="text" class="form-control @error('alumni') is-invalid @enderror" name="alumni" value="{{ old('alumni') }}" placeholder="Masukkan alumni">
+            <input type="text" class="form-control @error('alumni') is-invalid @enderror" name="alumni" value="{{ old('alumni', $doctor->alumni) }}" placeholder="Masukkan alumni">
 
             <!-- error message untuk alumni -->
             @error('alumni')
@@ -98,7 +98,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">NIP</label>
-            <input type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" value="{{ old('nip') }}" placeholder="Masukkan nip">
+            <input type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" value="{{ old('nip', $doctor->nip) }}" placeholder="Masukkan nip">
 
             <!-- error message untuk nip -->
             @error('nip')
@@ -110,7 +110,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">STR</label>
-            <input type="text" class="form-control @error('str') is-invalid @enderror" name="str" value="{{ old('str') }}" placeholder="Masukkan str">
+            <input type="text" class="form-control @error('str') is-invalid @enderror" name="str" value="{{ old('str', $doctor->str) }}" placeholder="Masukkan str">
 
             <!-- error message untuk str -->
             @error('str')
@@ -122,7 +122,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">SIP</label>
-            <input type="text" class="form-control @error('sip') is-invalid @enderror" name="sip" value="{{ old('sip') }}" placeholder="Masukkan sip">
+            <input type="text" class="form-control @error('sip') is-invalid @enderror" name="sip" value="{{ old('sip', $doctor->sip) }}" placeholder="Masukkan sip">
 
             <!-- error message untuk sip -->
             @error('sip')
@@ -146,7 +146,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">STATUS</label>
-            <input type="text" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}" placeholder="Masukkan status">
+            <input type="text" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status', $doctor->status) }}" placeholder="Masukkan status">
 
             <!-- error message untuk status -->
             @error('status')
@@ -158,7 +158,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">LANG</label>
-            <input type="text" class="form-control @error('lang') is-invalid @enderror" name="lang" value="{{ old('lang') }}" placeholder="Masukkan lang">
+            <input type="text" class="form-control @error('lang') is-invalid @enderror" name="lang" value="{{ old('lang', $doctor->lang) }}" placeholder="Masukkan lang">
 
             <!-- error message untuk lang -->
             @error('lang')

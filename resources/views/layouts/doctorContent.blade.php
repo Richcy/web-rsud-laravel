@@ -11,7 +11,7 @@
       <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
         <div class="member" data-aos="fade-up" data-aos-delay="100">
           <div class="member-img">
-            <img src="{{ asset('/storage/doctors/'.$doctor->img) }}" class="img-fluid" alt="{{ $doctor->name }}">
+            <img src="{{ asset('/storage/'.$doctor->img) }}" class="img-fluid" alt="{{ $doctor->name }}">
             <div class="social">
               <a href=""><i class="bi bi-twitter"></i></a>
               <a href=""><i class="bi bi-facebook"></i></a>

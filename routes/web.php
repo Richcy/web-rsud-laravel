@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserViewController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 // Default home page route
@@ -44,18 +45,12 @@ Route::prefix('admin')->group(function () {
         Route::resource('products', ProductController::class);
         Route::resource('admins', AdminController::class);
         Route::resource('dokter', DoctorController::class);
+        Route::resource('event', EventController::class);
 
-            // Route for getting the service by type
+        // Route for getting the service by type
         Route::get('/{slug}', [ServiceController::class, 'showPage'])->name('admin.page.type');
 
         // Route for updating the service by type
         Route::put('/{slug}', [ServiceController::class, 'updatePage'])->name('admin.page.update');
-
-        
-       
     });
 });
-
-
-
-

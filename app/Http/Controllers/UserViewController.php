@@ -5,31 +5,34 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Doctor;
+use App\Models\Event;
 
 class UserViewController extends Controller
 {
 
     public function index()
     {
-        // Retrieve all required services in one query
-        $services = Service::whereIn('type', ['aboutDirectur', 'aboutNotice', 'aboutQuality', 'aboutOrganization'])->get();
+        // Retrieve and group required services by type
+        $groupedServices = Service::whereIn('type', ['aboutDirectur', 'aboutNotice', 'aboutQuality', 'aboutOrganization'])
+            ->get()
+            ->keyBy('type');
 
-        // Group services by their 'type'
-        $groupedServices = $services->keyBy('type');
+        // Retrieve all doctors
+        $doctors = Doctor::all();
 
-        // Pass the grouped services to the view
+        // Pass only the required variables to the view
         return view('index', [
-            'services' => Service::all(),
             'directur' => $groupedServices->get('aboutDirectur'),
             'notice' => $groupedServices->get('aboutNotice'),
             'quality' => $groupedServices->get('aboutQuality'),
-            'organization' => $groupedServices->get('aboutOrganization')
+            'organization' => $groupedServices->get('aboutOrganization'),
+            'doctors' => $doctors,
         ]);
     }
 
     public function showPage(string $slug)
     {
-        // Create an associative array to map the values
+        // Create an associative array to map the values for about pages
         $aboutPages = [
             'profil-rumah-sakit' => 'aboutProfile',
             'sambutan-direktur' => 'aboutDirectur',
@@ -60,7 +63,12 @@ class UserViewController extends Controller
             'dokter' => 'doctor',
         ];
 
-        // Check if the slug is in the 'about' or 'service' array
+        // Add the event page mapping
+        $eventPages = [
+            'event' => 'event', // Slug for events
+        ];
+
+        // Check if the slug is in the 'about' array
         if (array_key_exists($slug, $aboutPages)) {
             $type = $aboutPages[$slug];
             $service = Service::where('type', $type)->first();
@@ -81,7 +89,7 @@ class UserViewController extends Controller
             ];
 
             // Use the mapping to get the type; default to $type if not found
-            $file = $aboutFiles[$type] ?? $type; // Use null coalescing operator
+            $file = $aboutFiles[$type] ?? $type;
 
             // Dynamically render a view based on the type
             return view('about.' . $file, compact('service'));
@@ -108,17 +116,18 @@ class UserViewController extends Controller
             ];
 
             // Use the mapping to get the type; default to $type if not found
-            $file = $serviceFiles[$type] ?? $type; // Use null coalescing operator
+            $file = $serviceFiles[$type] ?? $type;
 
             // Dynamically render a view based on the type
             return view('service.' . $file, compact('service'));
-        } else {
-
+        } elseif (array_key_exists($slug, $doctorPages)) {
             $file = $doctorPages[$slug];
-
             $doctors = Doctor::all();
-
             return view('doctor.' . $file, compact('doctors'));
+        } elseif (array_key_exists($slug, $eventPages)) {
+            $file = $eventPages[$slug];
+            $events = Event::all(); // Fetch all events or use the relevant method to get a specific event
+            return view('event.' . $file, compact('events'));
         }
 
         // If no match is found, return 404

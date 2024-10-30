@@ -92,7 +92,7 @@
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="{{ url('/dokter') }}">Doctors</a></li>
-          <li><a class="nav-link scrollto" href="#event">Event</a></li>
+          <li><a class="nav-link scrollto" href="{{ url('/event') }}">Event</a></li>
           <li class="dropdown"><a href="#article"><span>Artikel</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Informasi Kesehatan</a></li>

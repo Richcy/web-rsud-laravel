@@ -8,6 +8,8 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserViewController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CareerController;
 use Illuminate\Support\Facades\Route;
 
 // Default home page route
@@ -46,6 +48,8 @@ Route::prefix('admin')->group(function () {
         Route::resource('admins', AdminController::class);
         Route::resource('dokter', DoctorController::class);
         Route::resource('event', EventController::class);
+        Route::resource('artikel', ArticleController::class);
+        Route::resource('karir', CareerController::class);
 
         // Route for getting the service by type
         Route::get('/{slug}', [ServiceController::class, 'showPage'])->name('admin.page.type');

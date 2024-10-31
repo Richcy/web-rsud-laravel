@@ -143,6 +143,34 @@
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArtikel"
+                    aria-expanded="true" aria-controls="collapseArtikel">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Artikel</span>
+                </a>
+                <div id="collapseArtikel" class="collapse" aria-labelledby="headingArtikel" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Artikel:</h6>
+                        <a class="collapse-item" href="{{ url('/admin/artikel') }}">Artikel</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCareer"
+                    aria-expanded="true" aria-controls="collapseCareer">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Career</span>
+                </a>
+                <div id="collapseCareer" class="collapse" aria-labelledby="headingCareer" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Career:</h6>
+                        <a class="collapse-item" href="{{ url('/admin/karir') }}">career</a>
+                    </div>
+                </div>
+            </li>
+
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"

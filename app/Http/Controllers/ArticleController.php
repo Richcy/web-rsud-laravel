@@ -4,21 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use App\Models\Event;
+use App\Models\Article;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
-class EventController extends Controller
+class ArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        $events = Event::get();
+        $articles = Article::get();
 
         //render view with products
-        return view('admin.events.index', compact('events'));
+        return view('admin.articles.index', compact('articles'));
     }
 
     /**
@@ -26,7 +26,7 @@ class EventController extends Controller
      */
     public function create(): View
     {
-        return view('admin.events.create');
+        return view('admin.articles.create');
     }
 
     /**
@@ -39,38 +39,28 @@ class EventController extends Controller
             'sub_desc' => 'required',
             'description' => 'required',
             'category' => 'required',
-            'url' => 'required',
+            'author' => 'required',
             'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
-            'start_time' => 'nullable|date_format:H:i',
-            'end_time' => 'nullable|date_format:H:i',
-            'location' => 'required',
             'status' => 'required',
 
         ]);
 
         $img = $request->file('img');
-        $eventName = $request->title;
-        $imgName = $eventName . '.' . $request->file('img')->getClientOriginalExtension();
-        $path = $img->storeAs('events', $imgName, 'public');
+        $articleName = $request->title;
+        $imgName = $articleName . '.' . $request->file('img')->getClientOriginalExtension();
+        $path = $img->storeAs('articles', $imgName, 'public');
 
-        Event::create([
+        Article::create([
             'title' => $request->title,
             'sub_desc' => $request->sub_desc,
             'description' => $request->description,
             'category' => $request->category,
-            'url' => $request->url,
+            'author' => $request->author,
             'img' => $path,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'location' => $request->location,
             'status' => $request->status,
         ]);
 
-        return redirect()->route('event.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('artikel.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     /**
@@ -78,9 +68,9 @@ class EventController extends Controller
      */
     public function show(string $id): View
     {
-        $event = Event::findOrFail($id);
+        $article = Article::findOrFail($id);
 
-        return view('admin.events.show', compact('event'));
+        return view('admin.articles.show', compact('article'));
     }
 
     /**
@@ -88,9 +78,9 @@ class EventController extends Controller
      */
     public function edit(string $id): View
     {
-        $event = Event::findOrFail($id);
+        $article = Article::findOrFail($id);
 
-        return view('admin.events.edit', compact('event'));
+        return view('admin.articles.edit', compact('article'));
     }
 
     /**
@@ -103,55 +93,40 @@ class EventController extends Controller
             'sub_desc' => 'required',
             'description' => 'required',
             'category' => 'required',
-            'url' => 'required',
+            'author' => 'required',
             'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
-            'start_time' => 'nullable|date_format:H:i',
-            'end_time' => 'nullable|date_format:H:i',
-            'location' => 'required',
             'status' => 'required',
         ]);
 
-        $event = Event::findOrFail($id);
+        $article = Article::findOrFail($id);
 
         if ($request->hasFile('img')) {
             $img = $request->file('img');
-            $img->storeAs('public/events', $img->hashName());
+            $img->storeAs('public/articles', $img->hashName());
 
-            Storage::delete('public/events/' . $event->img);
+            Storage::delete('public/articles/' . $article->img);
 
-            $event->update([
+            $article->update([
                 'title' => $request->title,
                 'sub_desc' => $request->sub_desc,
                 'description' => $request->description,
                 'category' => $request->category,
-                'url' => $request->url,
+                'author' => $request->author,
                 'img' => $img->hashName(),
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
-                'location' => $request->location,
                 'status' => $request->status,
             ]);
         } else {
-            $event->update([
+            $article->update([
                 'title' => $request->title,
                 'sub_desc' => $request->sub_desc,
                 'description' => $request->description,
                 'category' => $request->category,
-                'url' => $request->url,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
-                'location' => $request->location,
+                'author' => $request->author,
                 'status' => $request->status,
             ]);
         }
 
-        return redirect()->route('event.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('artikel.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     /**
@@ -159,9 +134,9 @@ class EventController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        $event = Event::findOrFail($id);
-        Storage::delete('public/events/' . $event->image);
-        $event->delete();
-        return redirect()->route('event.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        $article = Article::findOrFail($id);
+        Storage::delete('public/articles/' . $article->image);
+        $article->delete();
+        return redirect()->route('artikel.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

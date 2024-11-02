@@ -69,11 +69,10 @@
                             <td>{{ $career->title }}</td>
                             <td>{{ $career->sub_desc }}</td>
                             <td>{{ $career->description }}</td>
-                            <td>{{ $career->category }}</td>
+                            <td>{{ $career->url }}</td>
                             <td class="text-center">
                                 <img src="{{ asset('/storage/'.$career->img) }}" class="rounded" style="width: 150px">
                             </td>
-                            <td>{{ $career->author }}</td>
                             <td>{{ $career->status }}</td>
                             <td class="text-center">
                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('karir.destroy', $career->id) }}" method="POST">

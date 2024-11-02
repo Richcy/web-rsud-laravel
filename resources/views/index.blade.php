@@ -173,6 +173,12 @@
         @endforeach
       </div>
 
+      <div class="row row-home-doctor">
+        <div class="button-doctor">
+          <a href="#" class="btn btn-primary btn-doctor">Dokter Lainnya</a>
+        </div>
+      </div>
+
 
     </div>
 

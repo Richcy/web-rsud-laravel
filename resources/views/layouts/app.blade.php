@@ -28,7 +28,8 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-  <!-- <link href="assets/css/style.css" rel="stylesheet"> -->
+  <link href="{{ asset('css/style-fe.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/style-fe-plus.css') }}" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Medicio
@@ -63,7 +64,7 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto " href="{{ url('/') }}">Beranda</a></li>
+          <li><a class="nav-link" href="{{ url('/') }}">Beranda</a></li>
           <li class="dropdown"><a href="#about"><span>Tentang</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="{{ url('/profil-rumah-sakit') }}">Profil Rumah Sakit</a></li>

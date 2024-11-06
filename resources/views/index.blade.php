@@ -94,7 +94,7 @@
   </section><!-- End Departments Section -->
 
   <!-- ======= Services Section ======= -->
-  <section id="services" class="services services">
+  <section id="services" class="services section-bg">
     <div class="container" data-aos="fade-up">
 
       <div class="section-title">
@@ -144,7 +144,7 @@
   </section><!-- End Services Section -->
 
   <!-- ======= Doctors Section ======= -->
-  <section id="doctors" class="doctors section-bg">
+  <section id="doctors" class="doctors">
     <div class="container" data-aos="fade-up">
 
       <div class="section-title">
@@ -178,99 +178,50 @@
           <a href="#" class="btn btn-primary btn-doctor">Dokter Lainnya</a>
         </div>
       </div>
-
-
     </div>
 
   </section><!-- End Doctors Section -->
 
-  <!-- ======= Pricing Section ======= -->
-  <section id="pricing" class="pricing">
+  <!-- ======= Cimanews Section ======= -->
+  <section id="doctors" class="doctors section-bg">
     <div class="container" data-aos="fade-up">
 
-      <div class="section-title">
-        <h2>Cimanews</h2>
-        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      <div class="section-title mt-4">
+        <h2>CIMANews</h2>
       </div>
 
       <div class="row">
-
-        <div class="col-lg-3 col-md-6">
-          <div class="box" data-aos="fade-up" data-aos-delay="100">
-            <h3>Free</h3>
-            <h4><sup>$</sup>0<span> / month</span></h4>
-            <ul>
-              <li>Aida dere</li>
-              <li>Nec feugiat nisl</li>
-              <li>Nulla at volutpat dola</li>
-              <li class="na">Pharetra massa</li>
-              <li class="na">Massa ultricies mi</li>
-            </ul>
-            <div class="btn-wrap">
-              <a href="#" class="btn-buy">Buy Now</a>
+        @foreach($doctors as $doctor)
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member" data-aos="fade-up" data-aos-delay="100">
+            <div class="member-img">
+              <img src="{{ asset('/storage/'.$doctor->img) }}" class="img-fluid" alt="{{ $doctor->name }}">
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>{{ $doctor->name }}</h4>
+              <span>{{ $doctor->field }}</span>
             </div>
           </div>
         </div>
-
-        <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
-          <div class="box featured" data-aos="fade-up" data-aos-delay="200">
-            <h3>Business</h3>
-            <h4><sup>$</sup>19<span> / month</span></h4>
-            <ul>
-              <li>Aida dere</li>
-              <li>Nec feugiat nisl</li>
-              <li>Nulla at volutpat dola</li>
-              <li>Pharetra massa</li>
-              <li class="na">Massa ultricies mi</li>
-            </ul>
-            <div class="btn-wrap">
-              <a href="#" class="btn-buy">Buy Now</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
-          <div class="box" data-aos="fade-up" data-aos-delay="300">
-            <h3>Developer</h3>
-            <h4><sup>$</sup>29<span> / month</span></h4>
-            <ul>
-              <li>Aida dere</li>
-              <li>Nec feugiat nisl</li>
-              <li>Nulla at volutpat dola</li>
-              <li>Pharetra massa</li>
-              <li>Massa ultricies mi</li>
-            </ul>
-            <div class="btn-wrap">
-              <a href="#" class="btn-buy">Buy Now</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
-          <div class="box" data-aos="fade-up" data-aos-delay="400">
-            <span class="advanced">Advanced</span>
-            <h3>Ultimate</h3>
-            <h4><sup>$</sup>49<span> / month</span></h4>
-            <ul>
-              <li>Aida dere</li>
-              <li>Nec feugiat nisl</li>
-              <li>Nulla at volutpat dola</li>
-              <li>Pharetra massa</li>
-              <li>Massa ultricies mi</li>
-            </ul>
-            <div class="btn-wrap">
-              <a href="#" class="btn-buy">Buy Now</a>
-            </div>
-          </div>
-        </div>
-
+        @endforeach
       </div>
 
+      <div class="row row-home-doctor">
+        <div class="button-doctor">
+          <a href="#" class="btn btn-primary btn-doctor">Berita Lainnya</a>
+        </div>
+      </div>
     </div>
-  </section><!-- End Pricing Section -->
+  </section>
 
   <!-- ======= Frequently Asked Questioins Section ======= -->
-  <section id="faq" class="faq section-bg">
+  <section id="faq" class="faq">
     <div class="container" data-aos="fade-up">
 
       <div class="section-title">
@@ -338,114 +289,74 @@
     </div>
   </section><!-- End Frequently Asked Questioins Section -->
 
-  <!-- ======= About Us Section ======= -->
-  <section id="about" class="about">
+  <!-- ======= Features Section ======= -->
+  <section id="features" class="features section-bg">
     <div class="container" data-aos="fade-up">
-
-      <div class="section-title">
-        <h2>Layanan Pengaduan</h2>
+      <div class="container">
+        <div class="section-title">
+          <h2>Layanan Pengaduan</h2>
+        </div>
       </div>
-
       <div class="row">
-        <div class="col-lg-6" data-aos="fade-right">
-          <img src="{{ asset('img/about.jpg') }}" class="img-fluid" alt="">
+        <div class="col-lg-4 order-2 order-lg-1 mt-2" data-aos="fade-right">
+          <div class="complain">
+            <div class="icon-box">
+              <i class="bx bx-user"></i>
+              <p style="margin-top: 0px; margin-bottom: -10px;">Customer Service</p>
+              <p>(Gedung B Lantai 3)</p>
+            </div>
+            <div class="icon-box">
+              <img src="#">
+              <p><a href="https://www.lapor.go.id/" target="_blank">SP4N LAPOR</a></p>
+            </div>
+            <div class="icon-box">
+              <i class="bx bxl-whatsapp"></i>
+              <p><a href="https://wa.me/6285864817874?text=Halo%20Kak%20.%20.%20." target="_blank">(+62) 858-6481-7874</a></p>
+            </div>
+            <div class="icon-box">
+              <i class="bx bx-phone"></i>
+              <p>0263-2956-036</p>
+            </div>
+            <div class="icon-box">
+              <i class="bx bxl-instagram"></i>
+              <p><a href="https://www.instagram.com/rsud.cimacan/" target="_blank">Instagram</a></p>
+            </div>
+            <div class="icon-box">
+              <i class="bx bx-envelope"></i>
+              <p>rsud.cimacann@gmail.com</p>
+            </div>
+            <div class="icon-box">
+              <i class="bx bxl-facebook"></i>
+              <p><a href="https://www.facebook.com/profile.php?id=100071691815827" target="_blank">Facebook</a></p>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
-          <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
-          <p class="fst-italic">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua.
-          </p>
-          <ul>
-            <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-            <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-            <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-          </ul>
-          <p>
-            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum
-          </p>
-        </div>
+        <div class="image col-lg-8 order-1 order-lg-2" style='background-image: url("#");' data-aos="zoom-in"></div>
       </div>
 
     </div>
-  </section><!-- End About Us Section -->
+  </section><!-- End Features Section -->
 
   <!-- ======= Contact Section ======= -->
   <section id="contact" class="contact">
     <div class="container">
-
       <div class="section-title">
         <h2>Kontak</h2>
       </div>
-
     </div>
-
     <div class="container">
-
-      <div class="row mt-5">
-
-        <div class="col-lg-6">
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="info-box">
-                <i class="bx bx-map"></i>
-                <h3>Our Address</h3>
-                <p>A108 Adam Street, New York, NY 535022</p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="info-box mt-4">
-                <i class="bx bx-envelope"></i>
-                <h3>Email Us</h3>
-                <p>info@example.com<br>contact@example.com</p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="info-box mt-4">
-                <i class="bx bx-phone-call"></i>
-                <h3>Call Us</h3>
-                <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="col-lg-6">
-          <div>
-            <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
-          </div>
-          <!-- <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="">
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="7" placeholder="Message" required=""></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form> -->
-        </div>
-
+      <div class="col-md-8 col-sm-12">
+        <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.403937234007!2d107.03033791384557!3d-6.720464567574099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c41c14b26fab%3A0x6230e0dec5dc2dd9!2sRumah%20Sakit%20Umum%20Daerah%20(RSUD)%20Cimacan!5e0!3m2!1sen!2sid!4v1637289497439!5m2!1sen!2sid" loading="lazy"></iframe>
       </div>
-
+      <div class="col-md-4 col-sm-12">
+        <div class="info-box">
+          <i class="bx bx-map"></i>
+          <h3>Alamat Kami</h3>
+          <p>Jl. Raya Cimacan No.17A, Palasari, Kec. Cipanas, Kabupaten Cianjur, Jawa Barat 43253</p>
+        </div>
+      </div>
     </div>
-  </section><!-- End Contact Section -->
+  </section>
 
 </main><!-- End #main -->
 @endsection

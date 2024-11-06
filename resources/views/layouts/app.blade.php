@@ -92,7 +92,7 @@
               <li><a href="{{ url('/pengaduan') }}">Pengaduan</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="{{ url('/dokter') }}">Doctors</a></li>
+          <li><a class="nav-link scrollto" href="{{ url('/dokter') }}">Dokter</a></li>
           <li><a class="nav-link scrollto" href="{{ url('/event') }}">Event</a></li>
           <li class="dropdown"><a href="#article"><span>Artikel</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -100,8 +100,8 @@
               <li><a href="#">CimaNEWS</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="#career">Career</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Kontak</a></li>
+          <li><a class="nav-link scrollto" href="#career">Karir</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -213,6 +213,8 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('js/main.js') }}"></script>
+
+  @yield('js')
 
 </body>
 

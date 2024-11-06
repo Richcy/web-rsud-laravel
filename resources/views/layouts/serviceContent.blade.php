@@ -1,28 +1,37 @@
-<!-- ======= Breadcrumbs Section ======= -->
-<section class="breadcrumbs">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2>{{ $aboutTitle ?? 'Default Title' }}</h2> <!-- Use a dynamic variable for title -->
-            <ol>
-                <li><a href="{{ url('/') }}">Beranda</a></li>
-                <li>Tentang</li>
-                <li>{{ $aboutTitle ?? 'Default Title' }}</li> <!-- Dynamic breadcrumb -->
-            </ol>
-        </div>
+<div class="space-xs visible-xs"></div>
+<div class="container banner">
+    <!-- Breadcumb -->
+    <div class="breadcrumb-part">
+        <a href="{{ url('/') }}">Home</a>
+        <span><i class="fa fa-angle-right"></i></span>
+        <a href="javascript:void(0);">Layanan</a>
+        <span><i class="fa fa-angle-right"></i></span>
+        <a href="javascript:void(0);">{{ $aboutTitle ?? 'Default Title' }}</a>
     </div>
-</section><!-- End Breadcrumbs Section -->
+    <!-- End breadcumb -->
+
+    <div class="hidden-xs nhead-bg">
+        <img src="{{ asset('storage/' . $service->banner) }}" alt="{{ $service->type }}" class="banner-image">
+    </div>
+
+
+</div>
 
 <main id="main">
-
-    <!-- Inner Page Section -->
-    <section class="inner-page">
-      <div class="container">
-      <img src="{{ asset('storage/' . $service->banner) }}" alt="{{ $service->type }}" class="img-fluid">
-        <p>
-        {{ $service->description }}
-        </p>
-      </div>
-      
+    <section id="content" class="main-page">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h1 class="title-page">{{ $aboutTitle ?? 'Default Title' }}</h1>
+            </div>
+            <div class="container">
+                <div class="content-section">
+                    <div class="row">
+                        <div class="col-md-12 min-font-size">
+                            {{ $service->description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-
-</main><!-- End #main -->
+</main>

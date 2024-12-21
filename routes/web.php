@@ -21,6 +21,9 @@ Route::get('/inner', function () {
 
 Route::get('/{slug}', [UserViewController::class, 'showPage'])->name('page.show');
 
+Route::get('/dokter/{id}', [UserViewController::class, 'doctorDetail'])->name('doctor.detail');
+
+
 Route::prefix('admin')->group(function () {
     // Admin Authentication Routes
     Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
@@ -46,7 +49,13 @@ Route::prefix('admin')->group(function () {
         // Resource Routes
         Route::resource('products', ProductController::class);
         Route::resource('admins', AdminController::class);
-        Route::resource('dokter', DoctorController::class);
+        Route::prefix('doctors')->group(function () {
+            Route::resource('dokter', DoctorController::class);
+            Route::get('/bidang-dokter', [DoctorController::class, 'showFieldDoctor'])->name('dokter.showDoctorField');
+            Route::post('/bidang-dokter', [DoctorController::class, 'storeFieldDoctor'])->name('dokter.storeDoctorField');
+            Route::match(['put', 'patch'], '/bidang-dokter/{id}', [DoctorController::class, 'updateFieldDoctor'])->name('dokter.updateDoctorField');
+            Route::delete('/bidang-dokter/{id}', [DoctorController::class, 'destroyFieldDoctor'])->name('dokter.destroyDoctorField');
+        });
         Route::resource('event', EventController::class);
         Route::resource('artikel', ArticleController::class);
         Route::resource('karir', CareerController::class);

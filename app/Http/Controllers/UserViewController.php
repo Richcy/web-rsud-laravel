@@ -122,7 +122,7 @@ class UserViewController extends Controller
             return view('service.' . $file, compact('service'));
         } elseif (array_key_exists($slug, $doctorPages)) {
             $file = $doctorPages[$slug];
-            $doctors = Doctor::all();
+            $doctors = Doctor::paginate(2);
             return view('doctor.' . $file, compact('doctors'));
         } elseif (array_key_exists($slug, $eventPages)) {
             $file = $eventPages[$slug];
@@ -132,5 +132,14 @@ class UserViewController extends Controller
 
         // If no match is found, return 404
         return abort(404);
+    }
+
+    public function doctorDetail($id)
+    {
+        // Retrieve the doctor's details using the ID
+        $doctor = Doctor::find($id);
+
+        // Return the view with doctor details
+        return view('doctor.doctorDetail', compact('doctor'));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Doctor;
+use App\Models\FieldDoctor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,7 +19,7 @@ class DoctorController extends Controller
         $doctors = Doctor::get();
 
         //render view with products
-        return view('admin.doctors.index', compact('doctors'));
+        return view('admin.doctors.doctor.index', compact('doctors'));
     }
 
     /**
@@ -26,7 +27,7 @@ class DoctorController extends Controller
      */
     public function create(): View
     {
-        return view('admin.doctors.create');
+        return view('admin.doctors.doctor.create');
     }
 
     /**
@@ -81,7 +82,7 @@ class DoctorController extends Controller
     {
         $doctor = Doctor::findOrFail($id);
 
-        return view('admin.doctors.show', compact('doctor'));
+        return view('admin.doctors.doctor.show', compact('doctor'));
     }
 
     /**
@@ -91,7 +92,7 @@ class DoctorController extends Controller
     {
         $doctor = Doctor::findOrFail($id);
 
-        return view('admin.doctors.edit', compact('doctor'));
+        return view('admin.doctors.doctor.edit', compact('doctor'));
     }
 
     /**
@@ -167,5 +168,43 @@ class DoctorController extends Controller
         Storage::delete('public/doctors/' . $doctor->image);
         $doctor->delete();
         return redirect()->route('dokter.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+
+    public function showFieldDoctor(): View
+    {
+        $fielddoctors = FieldDoctor::get();
+
+        //render view with products
+        return view('admin.doctors.doctorfield.index', compact('fielddoctors'));
+    }
+
+    public function storeFieldDoctor(Request $request): RedirectResponse
+    {
+
+        FieldDoctor::create([
+            'name' => $request->name,
+            'lang' => 'id',
+        ]);
+
+        return redirect()->route('dokter.showDoctorField')->with(['success' => 'Data Berhasil Ditambah!']);
+    }
+
+    public function updateFieldDoctor(Request $request, string $id): RedirectResponse
+    {
+
+        $fieldDoctor = FieldDoctor::findOrFail($id);
+
+        $fieldDoctor->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('dokter.showDoctorField')->with(['success' => 'Data Berhasil Diubah!']);
+    }
+
+    public function destroyFieldDoctor(string $id): RedirectResponse
+    {
+        $fieldDoctor = FieldDoctor::findOrFail($id);
+        $fieldDoctor->delete();
+        return redirect()->route('dokter.showDoctorField')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

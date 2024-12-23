@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserViewController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\DoctorScheduleController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CareerController;
@@ -58,6 +59,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/featured-dokter', [DoctorController::class, 'showFeaturedDoctor'])->name('dokter.showFeaturedDoctor');
             Route::post('/featured-dokter', [DoctorController::class, 'storeFeaturedDoctor'])->name('dokter.storeFeaturedDoctor');
             Route::delete('/featured-dokter/{id}', [DoctorController::class, 'destroyFeaturedDoctor'])->name('dokter.destroyFeaturedDoctor');
+            Route::resource('jadwal-dokter', DoctorScheduleController::class);
         });
         Route::resource('event', EventController::class);
         Route::resource('artikel', ArticleController::class);

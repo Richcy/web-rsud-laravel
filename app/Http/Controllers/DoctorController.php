@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use App\Models\Doctor;
 use App\Models\FieldDoctor;
 use App\Models\FeaturedDoctor;
+use App\Models\DoctorSchedule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,16 +30,9 @@ class DoctorController extends Controller
             'name' => 'required',
             'field' => 'required',
             'office' => 'required',
-            'experience' => 'required|numeric',
-            'year' => 'required|numeric',
-            'month' => 'required|numeric',
-            'alumni' => 'required',
             'nip' => 'required',
-            'str' => 'required',
             'sip' => 'required',
             'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'status' => 'required',
-            'lang' => 'required'
         ]);
 
         $img = $request->file('img');
@@ -50,16 +44,10 @@ class DoctorController extends Controller
             'name' => $request->name,
             'field' => $request->field,
             'office' => $request->office,
-            'experience' => $request->experience,
-            'year' => $request->year,
-            'month' => $request->month,
-            'alumni' => $request->alumni,
             'nip' => $request->nip,
-            'str' => $request->str,
             'sip' => $request->sip,
             'img' => $path,
-            'status' => $request->status,
-            'lang' => $request->lang,
+            'lang' => 'id',
         ]);
 
         return redirect()->route('dokter.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -83,16 +71,9 @@ class DoctorController extends Controller
             'name' => 'required',
             'field' => 'required',
             'office' => 'required',
-            'experience' => 'required|numeric',
-            'year' => 'required|numeric',
-            'month' => 'required|numeric',
-            'alumni' => 'required',
             'nip' => 'required',
-            'str' => 'required',
             'sip' => 'required',
             'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'status' => 'required',
-            'lang' => 'required'
         ]);
 
         $doctor = Doctor::findOrFail($id);
@@ -107,31 +88,17 @@ class DoctorController extends Controller
                 'name' => $request->name,
                 'field' => $request->field,
                 'office' => $request->office,
-                'experience' => $request->experience,
-                'year' => $request->year,
-                'month' => $request->month,
-                'alumni' => $request->alumni,
                 'nip' => $request->nip,
-                'str' => $request->str,
                 'sip' => $request->sip,
                 'img' => $img->hashName(),
-                'status' => $request->status,
-                'lang' => $request->lang,
             ]);
         } else {
             $doctor->update([
                 'name' => $request->name,
                 'field' => $request->field,
                 'office' => $request->office,
-                'experience' => $request->experience,
-                'year' => $request->year,
-                'month' => $request->month,
-                'alumni' => $request->alumni,
                 'nip' => $request->nip,
-                'str' => $request->str,
                 'sip' => $request->sip,
-                'status' => $request->status,
-                'lang' => $request->lang,
             ]);
         }
 

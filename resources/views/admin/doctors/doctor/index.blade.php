@@ -40,67 +40,48 @@
                 <table class="table table-bordered" id="DoctorsTable" width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Field</th>
-                            <th>Office</th>
-                            <th>Experience</th>
-                            <th>Year</th>
-                            <th>Month</th>
-                            <th>Alumni</th>
-                            <th>NIP</th>
-                            <th>STR</th>
-                            <th>Img</th>
-                            <th>Status</th>
-                            <th>Lang</th>
                             <th>Action</th>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>Nama</th>
+                            <th>Bidang Keahlian</th>
+                            <th>Kantor/Unit Kerja</th>
+                            <th>NIP</th>
+                            <th>SIP</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Field</th>
-                            <th>Office</th>
-                            <th>Experience</th>
-                            <th>Year</th>
-                            <th>Month</th>
-                            <th>Alumni</th>
-                            <th>NIP</th>
-                            <th>STR</th>
-                            <th>Img</th>
-                            <th>Status</th>
-                            <th>Lang</th>
                             <th>Action</th>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>Nama</th>
+                            <th>Bidang Keahlian</th>
+                            <th>Kantor/Unit Kerja</th>
+                            <th>NIP</th>
+                            <th>SIP</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach ($doctors as $doctor)
                         <tr>
-                            <td>{{ $doctor->id }}</td>
-                            <td>{{ $doctor->name }}</td>
-                            <td>{{ $doctor->field }}</td>
-                            <td>{{ $doctor->office }}</td>
-                            <td>{{ $doctor->experience }}</td>
-                            <td>{{ $doctor->year }}</td>
-                            <td>{{ $doctor->month }}</td>
-                            <td>{{ $doctor->alumni }}</td>
-                            <td>{{ $doctor->nip }}</td>
-                            <td>{{ $doctor->str }}</td>
-                            <td class="text-center">
-                                <img src="{{ asset('/storage/'.$doctor->img) }}" class="rounded" style="width: 150px">
-                            </td>
-                            <td>{{ $doctor->status }}</td>
-                            <td>{{ $doctor->lang }}</td>
                             <td class="text-center">
                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('dokter.destroy', $doctor->id) }}" method="POST">
-                                    <a href="{{ route('dokter.show', $doctor->id) }}" class="btn btn-sm btn-dark">SHOW</a>
                                     <a href="{{ route('dokter.edit', $doctor->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
                                 </form>
                             </td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td class="text-center">
+                                <img src="{{ asset('/storage/'.$doctor->img) }}" class="rounded" style="width: 150px">
+                            </td>
+                            <td>{{ $doctor->name }}</td>
+                            <td>{{ $doctor->field }}</td>
+                            <td>{{ $doctor->office }}</td>
+                            <td>{{ $doctor->nip }}</td>
+                            <td>{{ $doctor->sip }}</td>
                         </tr>
                         @endforeach
                     </tbody>

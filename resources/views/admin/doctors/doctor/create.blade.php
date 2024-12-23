@@ -48,71 +48,11 @@
         </div>
 
         <div class="form-group mb-3">
-            <label class="font-weight-bold">EXPERIENCE</label>
-            <input type="text" class="form-control @error('experience') is-invalid @enderror" name="experience" value="{{ old('experience') }}" placeholder="Masukkan experience">
-
-            <!-- error message untuk experience -->
-            @error('experience')
-            <div class="alert alert-danger mt-2">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-
-        <div class="form-group mb-3">
-            <label class="font-weight-bold">YEAR</label>
-            <input type="text" class="form-control @error('year') is-invalid @enderror" name="year" value="{{ old('year') }}" placeholder="Masukkan year">
-
-            <!-- error message untuk year -->
-            @error('year')
-            <div class="alert alert-danger mt-2">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-
-        <div class="form-group mb-3">
-            <label class="font-weight-bold">MONTH</label>
-            <input type="text" class="form-control @error('month') is-invalid @enderror" name="month" value="{{ old('month') }}" placeholder="Masukkan month">
-
-            <!-- error message untuk month -->
-            @error('alumni')
-            <div class="alert alert-danger mt-2">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-
-        <div class="form-group mb-3">
-            <label class="font-weight-bold">ALUMNI</label>
-            <input type="text" class="form-control @error('alumni') is-invalid @enderror" name="alumni" value="{{ old('alumni') }}" placeholder="Masukkan alumni">
-
-            <!-- error message untuk alumni -->
-            @error('alumni')
-            <div class="alert alert-danger mt-2">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-
-        <div class="form-group mb-3">
             <label class="font-weight-bold">NIP</label>
             <input type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" value="{{ old('nip') }}" placeholder="Masukkan nip">
 
             <!-- error message untuk nip -->
             @error('nip')
-            <div class="alert alert-danger mt-2">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-
-        <div class="form-group mb-3">
-            <label class="font-weight-bold">STR</label>
-            <input type="text" class="form-control @error('str') is-invalid @enderror" name="str" value="{{ old('str') }}" placeholder="Masukkan str">
-
-            <!-- error message untuk str -->
-            @error('str')
             <div class="alert alert-danger mt-2">
                 {{ $message }}
             </div>
@@ -137,30 +77,6 @@
 
             <!-- error message untuk img -->
             @error('img')
-            <div class="alert alert-danger mt-2">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-
-        <div class="form-group mb-3">
-            <label class="font-weight-bold">STATUS</label>
-            <input type="text" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}" placeholder="Masukkan status">
-
-            <!-- error message untuk status -->
-            @error('status')
-            <div class="alert alert-danger mt-2">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-
-        <div class="form-group mb-3">
-            <label class="font-weight-bold">LANG</label>
-            <input type="text" class="form-control @error('lang') is-invalid @enderror" name="lang" value="{{ old('lang') }}" placeholder="Masukkan lang">
-
-            <!-- error message untuk lang -->
-            @error('lang')
             <div class="alert alert-danger mt-2">
                 {{ $message }}
             </div>

@@ -127,7 +127,7 @@
                         <a class="collapse-item" href="{{ url('/admin/doctors/bidang-dokter') }}">Bidang Dokter</a>
                         <a class="collapse-item" href="{{ url('/admin/doctors/dokter') }}">Dokter</a>
                         <a class="collapse-item" href="{{ url('/admin/doctors/featured-dokter') }}">Featured Dokter</a>
-                        <a class="collapse-item" href="{{ url('/admin/jadwal-dokter') }}">Jadwal Dokter</a>
+                        <a class="collapse-item" href="{{ url('/admin/doctors/jadwal-dokter') }}">Jadwal Dokter</a>
                     </div>
                 </div>
             </li>

@@ -6,33 +6,23 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Doctor;
 use App\Models\FieldDoctor;
+use App\Models\FeaturedDoctor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
 class DoctorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): View
     {
         $doctors = Doctor::get();
-
-        //render view with products
         return view('admin.doctors.doctor.index', compact('doctors'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
         return view('admin.doctors.doctor.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -75,29 +65,18 @@ class DoctorController extends Controller
         return redirect()->route('dokter.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id): View
     {
         $doctor = Doctor::findOrFail($id);
-
         return view('admin.doctors.doctor.show', compact('doctor'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id): View
     {
         $doctor = Doctor::findOrFail($id);
-
         return view('admin.doctors.doctor.edit', compact('doctor'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
@@ -159,9 +138,6 @@ class DoctorController extends Controller
         return redirect()->route('dokter.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id): RedirectResponse
     {
         $doctor = Doctor::findOrFail($id);
@@ -172,15 +148,12 @@ class DoctorController extends Controller
 
     public function showFieldDoctor(): View
     {
-        $fielddoctors = FieldDoctor::get();
-
-        //render view with products
-        return view('admin.doctors.doctorfield.index', compact('fielddoctors'));
+        $fieldDoctors = FieldDoctor::get();
+        return view('admin.doctors.doctorfield.index', compact('fieldDoctors'));
     }
 
     public function storeFieldDoctor(Request $request): RedirectResponse
     {
-
         FieldDoctor::create([
             'name' => $request->name,
             'lang' => 'id',
@@ -189,22 +162,38 @@ class DoctorController extends Controller
         return redirect()->route('dokter.showDoctorField')->with(['success' => 'Data Berhasil Ditambah!']);
     }
 
-    public function updateFieldDoctor(Request $request, string $id): RedirectResponse
-    {
-
-        $fieldDoctor = FieldDoctor::findOrFail($id);
-
-        $fieldDoctor->update([
-            'name' => $request->name,
-        ]);
-
-        return redirect()->route('dokter.showDoctorField')->with(['success' => 'Data Berhasil Diubah!']);
-    }
-
     public function destroyFieldDoctor(string $id): RedirectResponse
     {
         $fieldDoctor = FieldDoctor::findOrFail($id);
         $fieldDoctor->delete();
         return redirect()->route('dokter.showDoctorField')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+
+    public function showFeaturedDoctor(): View
+    {
+        $doctors = Doctor::all();
+        $featuredDoctors = FeaturedDoctor::with('doctor')->get();
+        $filterDoctor = FeaturedDoctor::pluck('doctor_id')->toArray();
+        $filterDoctor = $doctors->whereNotIn('id', $filterDoctor);
+        $featuredDoctorCount = $featuredDoctors->count();
+
+        return view('admin.doctors.featureddoctor.index', compact('doctors', 'featuredDoctors', 'filterDoctor', 'featuredDoctorCount'));
+    }
+
+
+    public function storeFeaturedDoctor(Request $request): RedirectResponse
+    {
+        FeaturedDoctor::create([
+            'doctor_id' => $request->doctor_id
+        ]);
+
+        return redirect()->route('dokter.showFeaturedDoctor')->with(['success' => 'Data Berhasil Ditambah!']);
+    }
+
+    public function destroyFeaturedDoctor(string $id): RedirectResponse
+    {
+        $featuredDoctor = FeaturedDoctor::findOrFail($id);
+        $featuredDoctor->delete();
+        return redirect()->route('dokter.showFeaturedDoctor')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

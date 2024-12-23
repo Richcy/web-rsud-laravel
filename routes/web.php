@@ -55,6 +55,9 @@ Route::prefix('admin')->group(function () {
             Route::post('/bidang-dokter', [DoctorController::class, 'storeFieldDoctor'])->name('dokter.storeDoctorField');
             Route::match(['put', 'patch'], '/bidang-dokter/{id}', [DoctorController::class, 'updateFieldDoctor'])->name('dokter.updateDoctorField');
             Route::delete('/bidang-dokter/{id}', [DoctorController::class, 'destroyFieldDoctor'])->name('dokter.destroyDoctorField');
+            Route::get('/featured-dokter', [DoctorController::class, 'showFeaturedDoctor'])->name('dokter.showFeaturedDoctor');
+            Route::post('/featured-dokter', [DoctorController::class, 'storeFeaturedDoctor'])->name('dokter.storeFeaturedDoctor');
+            Route::delete('/featured-dokter/{id}', [DoctorController::class, 'destroyFeaturedDoctor'])->name('dokter.destroyFeaturedDoctor');
         });
         Route::resource('event', EventController::class);
         Route::resource('artikel', ArticleController::class);

@@ -126,7 +126,7 @@
                         <h6 class="collapse-header">Dokter:</h6>
                         <a class="collapse-item" href="{{ url('/admin/doctors/bidang-dokter') }}">Bidang Dokter</a>
                         <a class="collapse-item" href="{{ url('/admin/doctors/dokter') }}">Dokter</a>
-                        <a class="collapse-item" href="{{ url('/admin/featured-dokter') }}">Featured Dokter</a>
+                        <a class="collapse-item" href="{{ url('/admin/doctors/featured-dokter') }}">Featured Dokter</a>
                         <a class="collapse-item" href="{{ url('/admin/jadwal-dokter') }}">Jadwal Dokter</a>
                     </div>
                 </div>

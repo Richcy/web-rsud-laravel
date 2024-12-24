@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 
-@section('title', 'Admin | Dokter')
+@section('title', 'Dokter | List Dokter')
 
 @section('style')
 

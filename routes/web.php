@@ -9,8 +9,10 @@ use App\Http\Controllers\UserViewController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorScheduleController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventCategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CareerController;
+use App\Models\EventCategory;
 use Illuminate\Support\Facades\Route;
 
 // Default home page route
@@ -47,21 +49,22 @@ Route::prefix('admin')->group(function () {
         Route::get('/charts', [AdminViewController::class, 'charts']);
         Route::get('/tables', [AdminViewController::class, 'tables']);
 
-        // Resource Routes
         Route::resource('products', ProductController::class);
         Route::resource('admins', AdminController::class);
-        Route::prefix('doctors')->group(function () {
-            Route::resource('dokter', DoctorController::class);
-            Route::get('/bidang-dokter', [DoctorController::class, 'showFieldDoctor'])->name('dokter.showDoctorField');
-            Route::post('/bidang-dokter', [DoctorController::class, 'storeFieldDoctor'])->name('dokter.storeDoctorField');
-            Route::match(['put', 'patch'], '/bidang-dokter/{id}', [DoctorController::class, 'updateFieldDoctor'])->name('dokter.updateDoctorField');
-            Route::delete('/bidang-dokter/{id}', [DoctorController::class, 'destroyFieldDoctor'])->name('dokter.destroyDoctorField');
-            Route::get('/featured-dokter', [DoctorController::class, 'showFeaturedDoctor'])->name('dokter.showFeaturedDoctor');
-            Route::post('/featured-dokter', [DoctorController::class, 'storeFeaturedDoctor'])->name('dokter.storeFeaturedDoctor');
-            Route::delete('/featured-dokter/{id}', [DoctorController::class, 'destroyFeaturedDoctor'])->name('dokter.destroyFeaturedDoctor');
-            Route::resource('jadwal-dokter', DoctorScheduleController::class);
-        });
+        Route::resource('dokter', DoctorController::class);
+        Route::get('/bidang-dokter', [DoctorController::class, 'showFieldDoctor'])->name('dokter.showDoctorField');
+        Route::post('/bidang-dokter', [DoctorController::class, 'storeFieldDoctor'])->name('dokter.storeDoctorField');
+        Route::match(['put', 'patch'], '/bidang-dokter/{id}', [DoctorController::class, 'updateFieldDoctor'])->name('dokter.updateDoctorField');
+        Route::delete('/bidang-dokter/{id}', [DoctorController::class, 'destroyFieldDoctor'])->name('dokter.destroyDoctorField');
+        Route::get('/featured-dokter', [DoctorController::class, 'showFeaturedDoctor'])->name('dokter.showFeaturedDoctor');
+        Route::post('/featured-dokter', [DoctorController::class, 'storeFeaturedDoctor'])->name('dokter.storeFeaturedDoctor');
+        Route::delete('/featured-dokter/{id}', [DoctorController::class, 'destroyFeaturedDoctor'])->name('dokter.destroyFeaturedDoctor');
+        Route::resource('jadwal-dokter', DoctorScheduleController::class);
         Route::resource('event', EventController::class);
+        Route::get('/kategori-event', [EventCategoryController::class, 'showEventCategory'])->name('event.showEventCategory');
+        Route::post('/kategori-event', [EventCategoryController::class, 'storeEventCategory'])->name('event.storeEventCategory');
+        Route::match(['put', 'patch'], '/kategori-event/{id}', [EventCategoryController::class, 'updateEventCategory'])->name('event.updateEventCategory');
+        Route::delete('/kategori-event/{id}', [EventCategoryController::class, 'destroyEventCategory'])->name('event.destroyEventCategory');
         Route::resource('artikel', ArticleController::class);
         Route::resource('karir', CareerController::class);
 

@@ -129,6 +129,18 @@ class DoctorController extends Controller
         return redirect()->route('dokter.showDoctorField')->with(['success' => 'Data Berhasil Ditambah!']);
     }
 
+    public function updateFieldDoctor(Request $request, string $id): RedirectResponse
+    {
+
+        $fieldDoctor = FieldDoctor::findOrFail($id);
+
+        $fieldDoctor->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('dokter.showDoctorField')->with(['success' => 'Data Berhasil Diubah!']);
+    }
+
     public function destroyFieldDoctor(string $id): RedirectResponse
     {
         $fieldDoctor = FieldDoctor::findOrFail($id);

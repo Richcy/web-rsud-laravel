@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 
-@section('title', 'Doctors | Show Doctor')
+@section('title', 'Dokter | Detail Dokter')
 
 @section('content')
 <div class="container mt-5 mb-5">

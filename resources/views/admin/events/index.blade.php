@@ -40,58 +40,39 @@
                 <table class="table table-bordered" id="EventsTable" width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Action</th>
+                            <th>#</th>
+                            <th>Poster</th>
                             <th>title</th>
-                            <th>sub_desc</th>
                             <th>description</th>
                             <th>category</th>
+                            <th>location</th>
                             <th>url</th>
-                            <th>img</th>
                             <th>start_date</th>
                             <th>end_date</th>
                             <th>start_time</th>
                             <th>end_time</th>
-                            <th>location</th>
-                            <th>status</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID</th>
+                            <th>Action</th>
+                            <th>#</th>
+                            <th>Poster</th>
                             <th>title</th>
-                            <th>sub_desc</th>
                             <th>description</th>
                             <th>category</th>
+                            <th>location</th>
                             <th>url</th>
-                            <th>img</th>
                             <th>start_date</th>
                             <th>end_date</th>
                             <th>start_time</th>
                             <th>end_time</th>
-                            <th>location</th>
-                            <th>status</th>
-                            <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach ($events as $event)
                         <tr>
-                            <td>{{ $event->id }}</td>
-                            <td>{{ $event->title }}</td>
-                            <td>{{ $event->sub_desc }}</td>
-                            <td>{{ $event->description }}</td>
-                            <td>{{ $event->category }}</td>
-                            <td>{{ $event->url }}</td>
-                            <td>{{ $event->start_date }}</td>
-                            <td>{{ $event->end_date }}</td>
-                            <td>{{ $event->start_time }}</td>
-                            <td>{{ $event->end_time }}</td>
-                            <td class="text-center">
-                                <img src="{{ asset('/storage/'.$event->img) }}" class="rounded" style="width: 150px">
-                            </td>
-                            <td>{{ $event->location }}</td>
-                            <td>{{ $event->status }}</td>
                             <td class="text-center">
                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('event.destroy', $event->id) }}" method="POST">
                                     <a href="{{ route('event.show', $event->id) }}" class="btn btn-sm btn-dark">SHOW</a>
@@ -101,6 +82,19 @@
                                     <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
                                 </form>
                             </td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td class="text-center">
+                                <img src="{{ asset('/storage/'.$event->img) }}" class="rounded" style="width: 150px">
+                            </td>
+                            <td>{{ $event->title }}</td>
+                            <td>{{ $event->description }}</td>
+                            <td>{{ $event->category }}</td>
+                            <td>{{ $event->location }}</td>
+                            <td>{{ $event->url }}</td>
+                            <td>{{ $event->start_date }}</td>
+                            <td>{{ $event->end_date }}</td>
+                            <td>{{ $event->start_time }}</td>
+                            <td>{{ $event->end_time }}</td>
                         </tr>
                         @endforeach
                     </tbody>

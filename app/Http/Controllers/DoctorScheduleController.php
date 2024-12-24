@@ -16,7 +16,7 @@ class DoctorScheduleController extends Controller
         $doctors = Doctor::all();
         $doctorSchedules = DoctorSchedule::with('doctor')->get();
 
-        return view('admin.doctors.doctorschedule.index', compact('doctors', 'doctorSchedules'));
+        return view('admin.doctors.doctor_schedule.index', compact('doctors', 'doctorSchedules'));
     }
 
     /**
@@ -27,7 +27,7 @@ class DoctorScheduleController extends Controller
         $doctors = Doctor::all();
         $filterDoctor = DoctorSchedule::pluck('doctor_id')->toArray();
         $filterDoctor = $doctors->whereNotIn('id', $filterDoctor);
-        return view('admin.doctors.doctorschedule.create', compact('filterDoctor'));
+        return view('admin.doctors.doctor_schedule.create', compact('filterDoctor'));
     }
 
     /**
@@ -108,7 +108,7 @@ class DoctorScheduleController extends Controller
         } else {
             $minggu1 = $minggu2 = null;
         }
-        return view('admin.doctors.doctorschedule.edit', compact(
+        return view('admin.doctors.doctor_schedule.edit', compact(
             'doctorSchedule',
             'senin1',
             'senin2',

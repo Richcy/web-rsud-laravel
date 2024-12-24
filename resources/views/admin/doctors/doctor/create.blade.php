@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 
-@section('title', 'Doctor | Add Doctors')
+@section('title', 'Dokter | Tambah Dokter')
 
 @section('content')
 <!-- Begin Page Content -->

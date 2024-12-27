@@ -156,7 +156,9 @@
                 <div id="collapseArtikel" class="collapse" aria-labelledby="headingArtikel" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Artikel:</h6>
+                        <a class="collapse-item" href="{{ url('/admin/kategori-artikel') }}">Kategori Artikel</a>
                         <a class="collapse-item" href="{{ url('/admin/artikel') }}">Artikel</a>
+                        <a class="collapse-item" href="{{ url('/admin/cimanews') }}">Cimanews</a>
                     </div>
                 </div>
             </li>

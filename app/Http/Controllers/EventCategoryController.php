@@ -38,8 +38,8 @@ class EventCategoryController extends Controller
 
     public function destroyEventCategory(string $id): RedirectResponse
     {
-        $fieldDoctor = EventCategory::findOrFail($id);
-        $fieldDoctor->delete();
+        $eventCategory = EventCategory::findOrFail($id);
+        $eventCategory->delete();
         return redirect()->route('event.showEventCategory')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

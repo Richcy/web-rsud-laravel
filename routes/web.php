@@ -11,6 +11,7 @@ use App\Http\Controllers\DoctorScheduleController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventCategoryController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\CareerController;
 use App\Models\EventCategory;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +67,10 @@ Route::prefix('admin')->group(function () {
         Route::match(['put', 'patch'], '/kategori-event/{id}', [EventCategoryController::class, 'updateEventCategory'])->name('event.updateEventCategory');
         Route::delete('/kategori-event/{id}', [EventCategoryController::class, 'destroyEventCategory'])->name('event.destroyEventCategory');
         Route::resource('artikel', ArticleController::class);
+        Route::get('/kategori-artikel', [ArticleCategoryController::class, 'showArticleCategory'])->name('article.showArticleCategory');
+        Route::post('/kategori-artikel', [ArticleCategoryController::class, 'storeArticleCategory'])->name('article.storeArticleCategory');
+        Route::match(['put', 'patch'], '/kategori-artikel/{id}', [ArticleCategoryController::class, 'updateArticleCategory'])->name('article.updateArticleCategory');
+        Route::delete('/kategori-artikel/{id}', [ArticleCategoryController::class, 'destroyArticleCategory'])->name('article.destroyArticleCategory');
         Route::resource('karir', CareerController::class);
 
         // Route for getting the service by type

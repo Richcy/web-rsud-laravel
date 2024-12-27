@@ -18,7 +18,7 @@ class ArticleController extends Controller
         $articles = Article::get();
 
         //render view with products
-        return view('admin.articles.index', compact('articles'));
+        return view('admin.articles.article.index', compact('articles'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ArticleController extends Controller
      */
     public function create(): View
     {
-        return view('admin.articles.create');
+        return view('admin.articles.article.create');
     }
 
     /**
@@ -41,7 +41,6 @@ class ArticleController extends Controller
             'category' => 'required',
             'author' => 'required',
             'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'status' => 'required',
 
         ]);
 
@@ -57,7 +56,7 @@ class ArticleController extends Controller
             'category' => $request->category,
             'author' => $request->author,
             'img' => $path,
-            'status' => $request->status,
+            'status' => 'publish',
         ]);
 
         return redirect()->route('artikel.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -80,7 +79,7 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
 
-        return view('admin.articles.edit', compact('article'));
+        return view('admin.articles.article.edit', compact('article'));
     }
 
     /**
@@ -95,7 +94,6 @@ class ArticleController extends Controller
             'category' => 'required',
             'author' => 'required',
             'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'status' => 'required',
         ]);
 
         $article = Article::findOrFail($id);
@@ -113,7 +111,6 @@ class ArticleController extends Controller
                 'category' => $request->category,
                 'author' => $request->author,
                 'img' => $img->hashName(),
-                'status' => $request->status,
             ]);
         } else {
             $article->update([
@@ -122,7 +119,6 @@ class ArticleController extends Controller
                 'description' => $request->description,
                 'category' => $request->category,
                 'author' => $request->author,
-                'status' => $request->status,
             ]);
         }
 

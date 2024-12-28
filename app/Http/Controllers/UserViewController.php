@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Doctor;
 use App\Models\Event;
+use App\Models\FieldDoctor;
 
 class UserViewController extends Controller
 {
@@ -30,7 +31,7 @@ class UserViewController extends Controller
         ]);
     }
 
-    public function showPage(string $slug)
+    public function showPage(string $slug, Request $request)
     {
         // Create an associative array to map the values for about pages
         $aboutPages = [
@@ -122,8 +123,12 @@ class UserViewController extends Controller
             return view('service.' . $file, compact('service'));
         } elseif (array_key_exists($slug, $doctorPages)) {
             $file = $doctorPages[$slug];
-            $doctors = Doctor::paginate(2);
-            return view('doctor.' . $file, compact('doctors'));
+            $fieldSelected = $request->get('field');
+            $doctors = Doctor::with('field')->when($fieldSelected, function ($query, $fieldSelected) {
+                return $query->where('field_id', $fieldSelected);
+            })->paginate(8);
+            $doctorFields = FieldDoctor::all();
+            return view('doctor.' . $file, compact('doctors', 'doctorFields', 'fieldSelected'));
         } elseif (array_key_exists($slug, $eventPages)) {
             $file = $eventPages[$slug];
             $events = Event::all(); // Fetch all events or use the relevant method to get a specific event

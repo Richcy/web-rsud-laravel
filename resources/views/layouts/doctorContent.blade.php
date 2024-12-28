@@ -21,16 +21,18 @@
           <div class="ln-wrap">
             <div class="ln-content">
               <div class="ln-desc">
-                <form action="#" method="GET">
+                <form action="{{ url()->current() }}" method="GET">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="">Spesialis</label>
-                        <select class="form-control spesialis" id="" name="field">
+                        <select class="form-control spesialis" id="" name="field" onchange="this.form.submit()">
                           <option value="">-- Semua Spesialis --</option>
-
-                          <option value=""></option>
-
+                          @foreach ($doctorFields as $df)
+                          <option value="{{ $df->id }}" {{ old('field', $fieldSelected ?? '') == $df->id ? 'selected' : '' }}>
+                            {{ $df->name }}
+                          </option>
+                          @endforeach
                         </select>
                       </div>
                     </div>
@@ -71,7 +73,7 @@
                   </div>
                   <div class="member-info">
                     <h4>{{ $doctor->name }}</h4>
-                    <span>{{ $doctor->field }}</span>
+                    <span>{{ $doctor->field->name ?? 'No Field Assigned' }}</span>
                   </div>
                 </a>
               </div>

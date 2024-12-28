@@ -11,7 +11,7 @@ class Doctor extends Model
 
     protected $fillable = [
         'name',
-        'field',
+        'field_id',
         'office',
         'experience',
         'year',
@@ -24,4 +24,9 @@ class Doctor extends Model
         'status',
         'lang'
     ];
+
+    public function field()
+    {
+        return $this->belongsTo(FieldDoctor::class, 'field_id'); // 'field_id' is the foreign key
+    }
 }

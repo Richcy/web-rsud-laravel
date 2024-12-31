@@ -123,12 +123,18 @@ class UserViewController extends Controller
             return view('service.' . $file, compact('service'));
         } elseif (array_key_exists($slug, $doctorPages)) {
             $file = $doctorPages[$slug];
+            $s = $request->get('s', '');
             $fieldSelected = $request->get('field');
-            $doctors = Doctor::with('field')->when($fieldSelected, function ($query, $fieldSelected) {
-                return $query->where('field_id', $fieldSelected);
-            })->paginate(8);
+            $doctors = Doctor::with('field')
+                ->when($fieldSelected, function ($query, $fieldSelected) {
+                    return $query->where('field_id', $fieldSelected);
+                })
+                ->when($s, function ($query, $s) {
+                    return $query->where('name', 'like', '%' . $s . '%');
+                })
+                ->paginate(8);
             $doctorFields = FieldDoctor::all();
-            return view('doctor.' . $file, compact('doctors', 'doctorFields', 'fieldSelected'));
+            return view('doctor.' . $file, compact('doctors', 'doctorFields', 'fieldSelected', 's'));
         } elseif (array_key_exists($slug, $eventPages)) {
             $file = $eventPages[$slug];
             $events = Event::all(); // Fetch all events or use the relevant method to get a specific event
@@ -141,10 +147,8 @@ class UserViewController extends Controller
 
     public function doctorDetail($id)
     {
-        // Retrieve the doctor's details using the ID
-        $doctor = Doctor::find($id);
-
-        // Return the view with doctor details
-        return view('doctor.doctorDetail', compact('doctor'));
+        $doctor = Doctor::with('schedule')->findOrFail($id);
+        $relatedDoctors = Doctor::whereNotIn('id', [$id])->limit(4)->get();
+        return view('doctor.doctorDetail', compact('doctor', 'relatedDoctors'));
     }
 }

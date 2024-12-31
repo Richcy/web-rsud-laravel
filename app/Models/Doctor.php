@@ -29,4 +29,9 @@ class Doctor extends Model
     {
         return $this->belongsTo(FieldDoctor::class, 'field_id'); // 'field_id' is the foreign key
     }
+
+    public function schedule()
+    {
+        return $this->hasOne(DoctorSchedule::class); // Each doctor has one schedule
+    }
 }

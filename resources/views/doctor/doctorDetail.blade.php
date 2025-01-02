@@ -90,7 +90,7 @@
                     @endforeach
                 </div>
                 <div class="event-home-all">
-                    <a href="">Lihat Lainnya</a>
+                    <a href="{{ url('dokter/') }}">Lihat Lainnya</a>
                 </div>
             </section>
         </div>

@@ -1,84 +1,115 @@
-<!-- ======= Pricing Section ======= -->
-<section id="pricing" class="pricing">
-    <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-            <h2>Cimanews</h2>
-            <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-        </div>
-
-        <div class="row">
-
-            <div class="col-lg-3 col-md-6">
-                <div class="box" data-aos="fade-up" data-aos-delay="100">
-                    <h3>Free</h3>
-                    <h4><sup>$</sup>0<span> / month</span></h4>
-                    <ul>
-                        <li>Aida dere</li>
-                        <li>Nec feugiat nisl</li>
-                        <li>Nulla at volutpat dola</li>
-                        <li class="na">Pharetra massa</li>
-                        <li class="na">Massa ultricies mi</li>
-                    </ul>
-                    <div class="btn-wrap">
-                        <a href="#" class="btn-buy">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
-                <div class="box featured" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Business</h3>
-                    <h4><sup>$</sup>19<span> / month</span></h4>
-                    <ul>
-                        <li>Aida dere</li>
-                        <li>Nec feugiat nisl</li>
-                        <li>Nulla at volutpat dola</li>
-                        <li>Pharetra massa</li>
-                        <li class="na">Massa ultricies mi</li>
-                    </ul>
-                    <div class="btn-wrap">
-                        <a href="#" class="btn-buy">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
-                <div class="box" data-aos="fade-up" data-aos-delay="300">
-                    <h3>Developer</h3>
-                    <h4><sup>$</sup>29<span> / month</span></h4>
-                    <ul>
-                        <li>Aida dere</li>
-                        <li>Nec feugiat nisl</li>
-                        <li>Nulla at volutpat dola</li>
-                        <li>Pharetra massa</li>
-                        <li>Massa ultricies mi</li>
-                    </ul>
-                    <div class="btn-wrap">
-                        <a href="#" class="btn-buy">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
-                <div class="box" data-aos="fade-up" data-aos-delay="400">
-                    <span class="advanced">Advanced</span>
-                    <h3>Ultimate</h3>
-                    <h4><sup>$</sup>49<span> / month</span></h4>
-                    <ul>
-                        <li>Aida dere</li>
-                        <li>Nec feugiat nisl</li>
-                        <li>Nulla at volutpat dola</li>
-                        <li>Pharetra massa</li>
-                        <li>Massa ultricies mi</li>
-                    </ul>
-                    <div class="btn-wrap">
-                        <a href="#" class="btn-buy">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
+<div class="space-xs visible-xs"></div>
+<div class="container banner">
+    <!-- Breadcumb -->
+    <div class="breadcrumb-part">
+        <a href="{{ url('/') }}">Home</a>
+        <span><i class="fa fa-angle-right"></i></span>
+        <a href="javascript:void(0);">Event</a>
     </div>
-</section><!-- End Pricing Section -->
+    <!-- End breadcumb -->
+</div>
+
+<main id="main">
+    <section id="content" class="main-page">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h1 class="title-page">Event RSUD Cimacan</h1>
+            </div>
+            <!-- Search Section -->
+            <div class="row-ln" style="display: table;">
+                <div class="search-box">
+                    <div class="ln-wrap">
+                        <div class="ln-content">
+                            <div class="ln-desc">
+                                <form action="{{ url()->current() }}" method="GET">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Kategori</label>
+                                                <select class="form-control category" id="" name="category">
+                                                    <option value="">-- Semua Kategori --</option>
+                                                    @foreach ($eventCategories as $ec)
+                                                    <option value="{{ $ec->id }}" {{ old('category', $categorySelected ?? '') == $ec->id ? 'selected' : '' }}>
+                                                        {{ $ec->name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Nama Event</label>
+                                                <input name="s" type="text" class="form-control input-search-event" placeholder="Masukkan keyword" value="{{ $s }}">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" style="background-color: #01923f; border-color: #01923f;">Submit</button>
+                                            @if ($categorySelected != '' || $s != '')
+                                            <a href="{{ url()->current() }}" class="btn btn-primary button-reset">Reset</a>
+                                            @endif
+
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Search Section -->
+
+            <div class="row-listbox">
+                <!-- Looping event -->
+                @forelse ($events as $event)
+                <div class="col-listbox">
+                    <div class="listboxd-wrap">
+                        @php
+                        $imageUrl = $event->img ? asset('storage/' . $event->img) : asset('storage/default-image.jpg');
+                        @endphp
+                        <a href="{{ route('event.detail', ['id' => $event->id]) }}" class="listboxd-img" style="background-image: url('{{ $imageUrl }}')">
+
+                            <span style="opacity: 0;">
+                                {{ $event->title }}
+                            </span>
+                        </a>
+                        <div class="listboxd-content">
+                            <div class="row down1" style="height:50px;">
+                                <div class="col-xs-12" style="padding-left:0;">
+                                    <div class="listboxd-date">
+                                        {{ date('d M Y', strtotime($event->start_date)) }} - {{ date('d M Y', strtotime($event->end_date)) }}
+                                    </div>
+                                    <div class="listboxd-location">
+                                        <i class="fa fa-map-marker"></i>
+                                        {{ $event->location ? substr($event->location, 0, 35) . '....' : '-' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{{ route('event.detail', ['id' => $event->id]) }}" class="listboxd-title min-heigt-title">
+                                {{ $event->title }}
+                            </a>
+                            <div class="listboxd-desc" id="desc_card">
+                                {{ $event->sub_desc ? substr($event->sub_desc, 0, 150) : substr($event->description, 0, 150) }}...
+                            </div>
+                            <div class="row up2 top-footer-card">
+                                <div class="col-xs-6 pad0">
+                                    <div class="listboxd-category">
+                                        {{ $event->category_name }}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 pad0">
+                                    <div class="listboxd-read">
+                                        <a href="{{ route('event.detail', ['id' => $event->id]) }}">Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <!-- End looping event -->
+                <p class="empty-data">Data event tidak tersedia</p>
+                @endforelse
+            </div>
+
+        </div>
+    </section>
+</main>

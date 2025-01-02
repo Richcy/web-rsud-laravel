@@ -13,7 +13,6 @@ use App\Http\Controllers\EventCategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\CareerController;
-use App\Models\EventCategory;
 use Illuminate\Support\Facades\Route;
 
 // Default home page route
@@ -26,6 +25,8 @@ Route::get('/inner', function () {
 Route::get('/{slug}', [UserViewController::class, 'showPage'])->name('page.show');
 
 Route::get('/dokter/{id}', [UserViewController::class, 'doctorDetail'])->name('doctor.detail');
+
+Route::get('/event/{id}', [UserViewController::class, 'eventDetail'])->name('event.detail');
 
 
 Route::prefix('admin')->group(function () {

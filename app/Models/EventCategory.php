@@ -11,4 +11,9 @@ class EventCategory extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function event()
+    {
+        return $this->hasOne(Event::class, 'category_id');
+    }
 }

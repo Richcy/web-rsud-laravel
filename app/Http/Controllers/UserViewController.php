@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Doctor;
-use App\Models\Event;
 use App\Models\FieldDoctor;
+use App\Models\Event;
+use App\Models\EventCategory;
 
 class UserViewController extends Controller
 {
@@ -136,9 +137,28 @@ class UserViewController extends Controller
             $doctorFields = FieldDoctor::all();
             return view('doctor.' . $file, compact('doctors', 'doctorFields', 'fieldSelected', 's'));
         } elseif (array_key_exists($slug, $eventPages)) {
+            // Identify the view file to use
             $file = $eventPages[$slug];
-            $events = Event::all(); // Fetch all events or use the relevant method to get a specific event
-            return view('event.' . $file, compact('events'));
+
+            // Retrieve search and filter parameters
+            $s = $request->get('s', '');
+            $categorySelected = $request->get('category');
+
+            // Query events with filters
+            $events = Event::with('category') // Assuming a 'category' relationship exists
+                ->when($categorySelected, function ($query, $categorySelected) {
+                    return $query->where('category_id', $categorySelected);
+                })
+                ->when($s, function ($query, $s) {
+                    return $query->where('title', 'like', '%' . $s . '%'); // Assuming 'title' is the searchable field
+                })
+                ->paginate(8); // Adjust pagination as needed
+
+            // Fetch all categories for filtering
+            $eventCategories = EventCategory::all();
+
+            // Pass data to the view
+            return view('event.' . $file, compact('events', 'eventCategories', 'categorySelected', 's'));
         }
 
         // If no match is found, return 404
@@ -150,5 +170,12 @@ class UserViewController extends Controller
         $doctor = Doctor::with('schedule')->findOrFail($id);
         $relatedDoctors = Doctor::whereNotIn('id', [$id])->limit(4)->get();
         return view('doctor.doctorDetail', compact('doctor', 'relatedDoctors'));
+    }
+
+    public function eventDetail($id)
+    {
+        $event = Event::with('category')->findOrFail($id); // Load event and its related category
+        $relatedEvents = Event::whereNotIn('id', [$id])->limit(4)->get(); // Fetch related events excluding the current one
+        return view('event.eventDetail', compact('event', 'relatedEvents'));
     }
 }

@@ -23,4 +23,9 @@ class Event extends Model
         'location',
         'status',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(EventCategory::class, 'category_id');
+    }
 }

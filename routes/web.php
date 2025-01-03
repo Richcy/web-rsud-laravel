@@ -28,6 +28,8 @@ Route::get('/dokter/{id}', [UserViewController::class, 'doctorDetail'])->name('d
 
 Route::get('/event/{id}', [UserViewController::class, 'eventDetail'])->name('event.detail');
 
+Route::get('/article/{id}', [UserViewController::class, 'articleDetail'])->name('article.detail');
+
 
 Route::prefix('admin')->group(function () {
     // Admin Authentication Routes

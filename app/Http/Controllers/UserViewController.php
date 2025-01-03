@@ -8,6 +8,8 @@ use App\Models\Doctor;
 use App\Models\FieldDoctor;
 use App\Models\Event;
 use App\Models\EventCategory;
+use App\Models\Article;
+use App\Models\ArticleCategory;
 
 class UserViewController extends Controller
 {
@@ -68,6 +70,19 @@ class UserViewController extends Controller
         // Add the event page mapping
         $eventPages = [
             'event' => 'event', // Slug for events
+        ];
+
+        $articlePages = [
+            'artikel' => 'article', // Slug for events
+            'cimanews' => 'cimanews'
+        ];
+
+        $contactPages = [
+            'kontak' => 'contact', // Slug for events
+        ];
+
+        $careerPages = [
+            'karir' => 'career', // Slug for events
         ];
 
         // Check if the slug is in the 'about' array
@@ -159,6 +174,29 @@ class UserViewController extends Controller
 
             // Pass data to the view
             return view('event.' . $file, compact('events', 'eventCategories', 'categorySelected', 's'));
+        } elseif (array_key_exists($slug, $articlePages)) {
+            // Identify the view file to use
+            $file = $articlePages[$slug];
+
+            // Retrieve search and filter parameters
+            $s = $request->get('s', '');
+            $categorySelected = $request->get('category');
+
+            // Query events with filters
+            $articles = Article::with('category') // Assuming a 'category' relationship exists
+                ->when($categorySelected, function ($query, $categorySelected) {
+                    return $query->where('category_id', $categorySelected);
+                })
+                ->when($s, function ($query, $s) {
+                    return $query->where('title', 'like', '%' . $s . '%'); // Assuming 'title' is the searchable field
+                })
+                ->paginate(8); // Adjust pagination as needed
+
+            // Fetch all categories for filtering
+            $articleCategories = ArticleCategory::all();
+
+            // Pass data to the view
+            return view('article.' . $file, compact('articles', 'articleCategories', 'categorySelected', 's'));
         }
 
         // If no match is found, return 404
@@ -177,5 +215,12 @@ class UserViewController extends Controller
         $event = Event::with('category')->findOrFail($id); // Load event and its related category
         $relatedEvents = Event::whereNotIn('id', [$id])->limit(4)->get(); // Fetch related events excluding the current one
         return view('event.eventDetail', compact('event', 'relatedEvents'));
+    }
+
+    public function articleDetail($id)
+    {
+        $article = Article::with('category')->findOrFail($id); // Load article and its related category
+        $relatedArticles = Article::whereNotIn('id', [$id])->limit(4)->get(); // Fetch related articles excluding the current one
+        return view('article.articleDetail', compact('article', 'relatedArticles'));
     }
 }

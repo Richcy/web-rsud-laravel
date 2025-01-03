@@ -94,16 +94,16 @@
           </li>
           <li><a class="nav-link scrollto" href="{{ url('/dokter') }}">Dokter</a></li>
           <li><a class="nav-link scrollto" href="{{ url('/event') }}">Event</a></li>
-          <li class="dropdown"><a href="#article"><span>Artikel</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="{{ url('/artikel') }}""><span>Artikel</span> <i class=" bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Informasi Kesehatan</a></li>
-              <li><a href="#">CimaNEWS</a></li>
+              <li><a href="{{ url('/artikel') }}"">Informasi Kesehatan</a></li>
+              <li><a href=" {{ url('/cimanews') }}"">CimaNEWS</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="#contact">Kontak</a></li>
-          <li><a class="nav-link scrollto" href="#career">Karir</a></li>
+          <li><a class="nav-link scrollto" href="{{ url('/kontak') }}"">Kontak</a></li>
+          <li><a class=" nav-link scrollto" href="{{ url('/karir') }}"">Karir</a></li>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+        <i class=" bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
     </div>
   </header><!-- End Header -->

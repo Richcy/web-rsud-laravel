@@ -4,7 +4,7 @@
     <div class="breadcrumb-part">
         <a href="{{ url('/') }}">Home</a>
         <span><i class="fa fa-angle-right"></i></span>
-        <a href="javascript:void(0);">Artikel</a>
+        <a href="javascript:void(0);">{{$pageTitle}}</a>
     </div>
     <!-- End breadcumb -->
 </div>
@@ -13,7 +13,7 @@
     <section id="content" class="main-page">
         <div class="container" data-aos="fade-up">
             <div class="section-title">
-                <h1 class="title-page">Artikel RSUD Cimacan</h1>
+                <h1 class="title-page">{{$pageTitle}} RSUD Cimacan</h1>
             </div>
             <!-- Search Section -->
             <div class="row-ln" style="display: table;">
@@ -23,6 +23,7 @@
                             <div class="ln-desc">
                                 <form action="{{ url()->current() }}" method="GET">
                                     <div class="row">
+                                        @if ($pageTitle == "Artikel")
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Kategori</label>
@@ -36,9 +37,10 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        @endif
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Nama Artikel</label>
+                                                <label for="">Judul {{$pageTitle}}</label>
                                                 <input name="s" type="text" class="form-control input-search-article" placeholder="Masukkan keyword" value="{{ $s }}">
                                             </div>
                                             <button type="submit" class="btn btn-primary" style="background-color: #01923f; border-color: #01923f;">Submit</button>
@@ -65,14 +67,14 @@
                         @php
                         $imageUrl = $article->img ? asset('storage/' . $article->img) : asset('storage/default-image.jpg');
                         @endphp
-                        <a href="{{ route('article.detail', ['id' => $article->id]) }}" class="listboxd-img" style="background-image: url('{{ $imageUrl }}')">
+                        <a href="{{ route($pageTitle == 'Cimanews' ? 'cimanews.detail' : 'article.detail', ['id' => $article->id]) }}" class="listboxd-img" style="background-image: url('{{ $imageUrl }}')">
 
                             <span style="opacity: 0;">
                                 {{ $article->title }}
                             </span>
                         </a>
                         <div class="listboxd-content">
-                            <a href="{{ route('article.detail', ['id' => $article->id]) }}" class="listboxd-title min-heigt-title">
+                            <a href="{{ route($pageTitle == 'Cimanews' ? 'cimanews.detail' : 'article.detail', ['id' => $article->id]) }}" class="listboxd-title min-heigt-title">
                                 {{ $article->title }}
                             </a>
                             <div class="listboxd-desc" id="desc_card">
@@ -86,7 +88,7 @@
                                 </div>
                                 <div class="col-xs-6 pad0">
                                     <div class="listboxd-read">
-                                        <a href="{{ route('article.detail', ['id' => $article->id]) }}">Detail</a>
+                                        <a href="{{ route($pageTitle == 'Cimanews' ? 'cimanews.detail' : 'article.detail', ['id' => $article->id]) }}">Detail</a>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +97,7 @@
                 </div>
                 @empty
                 <!-- End looping article -->
-                <p class="empty-data">Data artikel tidak tersedia</p>
+                <p class="empty-data">Data {{$pageTitle}} tidak tersedia</p>
                 @endforelse
             </div>
 

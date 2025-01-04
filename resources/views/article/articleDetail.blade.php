@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'RSUD Cimacan | Article')
+@section('title', 'RSUD Cimacan | {{$pageTitle}}')
 
 @section('content')
 
@@ -11,7 +11,7 @@
     <div class="breadcrumb-part">
         <a href="{{ url('/') }}">Home</a>
         <span><i class="fa fa-angle-right"></i></span>
-        <a href="javascript:void(0);">Article</a>
+        <a href="javascript:void(0);">{{$pageTitle}}</a>
         <span><i class="fa fa-angle-right"></i></span>
         <a href="javascript:void(0);">{{ $article->title }}</a>
     </div>
@@ -30,27 +30,20 @@
                 </div>
                 <div class="col-md-6 pad0 rightPosition">
                     <div class="side-share">
-                        @php
-                        $lowerText = strtolower($article->title);
-                        $deleteUnique = str_replace('?', '', $lowerText);
-                        $change_url = str_replace(' ', '-', $deleteUnique);
-                        @endphp
-                        <a href="javascript:void(0);"
-                            onclick="popUpSocmed('https://www.facebook.com/sharer/sharer.php?u={{ url('event-' . $article->id . '-' . $change_url . '.html') }}','myWindow','500','300','yes');return false"
-                            class="share-link">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url($pageTitle == 'Cimanews' ? 'cimanews-' . $article->id . '.html' : 'article-' . $article->id . '.html') }}" target="_blank" class="share-link">
                             <img src="{{ asset('assets/fe/img/icon_facebook.png') }}" alt="facebook">
                         </a>
-                        <a href="javascript:void(0);"
-                            onclick="popUpSocmed('https://twitter.com/intent/tweet?url={{ url('event-' . $article->id . '-' . $change_url . '.html') }}&text={{ $article->title }}');return false"
-                            class="share-link">
+
+                        <!-- Twitter Share -->
+                        <a href="https://twitter.com/intent/tweet?url={{ url($pageTitle == 'Cimanews' ? 'cimanews-' . $article->id . '.html' : 'article-' . $article->id . '.html') }}&text={{ $article->title }}" target="_blank" class="share-link">
                             <img src="{{ asset('assets/fe/img/icon_twitter.png') }}" alt="twitter">
                         </a>
-                        <a href="javascript:void(0);"
-                            onclick="popUpSocmed('https://api.whatsapp.com/send?text={{ url('event-' . $article->id . '-' . $change_url . '.html') }}','myWindow','600','300','yes');return false"
-                            data-action="share/whatsapp/share"
-                            class="share-link">
+
+                        <!-- WhatsApp Share -->
+                        <a href="https://api.whatsapp.com/send?text={{ url($pageTitle == 'Cimanews' ? 'cimanews-' . $article->id . '.html' : 'article-' . $article->id . '.html') }}" target="_blank" class="share-link">
                             <img src="{{ asset('assets/fe/img/icon_whatsapp.png') }}" alt="whatsapp">
                         </a>
+
                     </div>
                 </div>
             </div>
@@ -70,7 +63,10 @@
                                 <div class="swiper-wrapper1 align-items-center">
                                     <!-- Looping -->
                                     <div class="swiper-slide">
-                                        <div class="gallery-imgswiper-image" style="background-image: url('{{ $article->img ? asset('storage/' . $article->img) : asset('storage/default-image.jpg') }}');">
+                                        @php
+                                        $imageUrl = $article->img ? asset('storage/' . $article->img) : asset('storage/default-image.jpg');
+                                        @endphp
+                                        <div class="gallery-imgswiper-image" style="background-image: url('{{ $imageUrl }}');">
                                             <div class="gallery-imgswiper-content">
                                                 <a href="{{ $article->img ? asset('storage/' . $article->img) : asset('storage/default-image.jpg') }}" class="gallery-imgswiper-zoom gallery-lightbox" rel="news">
                                                     <i class="fa fa-search"></i>
@@ -88,7 +84,7 @@
 
             <!-- Other Section -->
             <div class="section-title-other">
-                <h2 class="title-page">Article Lainnya</h2>
+                <h2 class="title-page">{{$pageTitle}} Lainnya</h2>
             </div>
             <div class="row-listbox">
                 <!-- Looping article -->
@@ -98,14 +94,14 @@
                         @php
                         $imageUrl = $ra->img ? asset('storage/' . $ra->img) : asset('storage/default-image.jpg');
                         @endphp
-                        <a href="{{ route('article.detail', ['id' => $ra->id]) }}" class="listboxd-img" style="background-image: url('{{ $imageUrl }}')">
+                        <a href="{{ route($pageTitle == 'Cimanews' ? 'cimanews.detail' : 'article.detail', ['id' => $ra->id]) }}" class="listboxd-img" style="background-image: url('{{ $imageUrl }}')">
 
                             <span style="opacity: 0;">
                                 {{ $ra->title }}
                             </span>
                         </a>
                         <div class="listboxd-content">
-                            <a href="{{ route('article.detail', ['id' => $ra->id]) }}" class="listboxd-title min-heigt-title">
+                            <a href="{{ route($pageTitle == 'Cimanews' ? 'cimanews.detail' : 'article.detail', ['id' => $ra->id]) }}" class="listboxd-title min-heigt-title">
                                 {{ $ra->title }}
                             </a>
                             <div class="listboxd-desc" id="desc_card">
@@ -119,7 +115,7 @@
                                 </div>
                                 <div class="col-xs-6 pad0">
                                     <div class="listboxd-read">
-                                        <a href="{{ route('article.detail', ['id' => $ra->id]) }}">Detail</a>
+                                        <a href="{{ route($pageTitle == 'Cimanews' ? 'cimanews.detail' : 'article.detail', ['id' => $ra->id]) }}">Detail</a>
                                     </div>
                                 </div>
                             </div>
@@ -128,8 +124,8 @@
                 </div>
                 @endforeach
             </div>
-            <div class="article-home-all">
-                <a href="{{ url('article/') }}">Lihat Lainnya</a>
+            <div class="event-home-all">
+                <a href="{{ url($pageTitle == 'Cimanews' ? 'cimanews' : 'artikel') }}">Lihat Lainnya</a>
             </div>
         </div>
     </section>

@@ -36,7 +36,10 @@
                                 <div class="swiper-wrapper1 align-items-center">
                                     <!-- Looping -->
                                     <div class="swiper-slide">
-                                        <div class="gallery-imgswiper-image" style="background-image: url('{{ $event->img ? asset('storage/' . $event->img) : asset('storage/default-image.jpg') }}');">
+                                        @php
+                                        $imageUrl = $event->img ? asset('storage/' . $event->img) : asset('storage/default-image.jpg')
+                                        @endphp
+                                        <div class="gallery-imgswiper-image" style="background-image: url('{{ $imageUrl }}');">
                                             <div class="gallery-imgswiper-content">
                                                 <a href="{{ $event->img ? asset('storage/' . $event->img) : asset('storage/default-image.jpg') }}" class="gallery-imgswiper-zoom gallery-lightbox" rel="news">
                                                     <i class="fa fa-search"></i>
@@ -56,16 +59,22 @@
 
                             <div class="datetime-event">Bagikan</div>
                             <div class="side-share">
-                                <a href="javascript:void(0);" onclick="popUpSocmed('https://www.facebook.com/sharer/sharer.php?u={{ url('event-' . $event->id . '-' . '.html') }}','myWindow','500','300','yes');return false" class="share-link">
+                                <!-- Facebook Share -->
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ url('event-' . $event->id . '.html') }}" target="_blank" class="share-link">
                                     <img src="{{ asset('assets/fe/img/icon_facebook.png') }}" alt="facebook">
                                 </a>
-                                <a href="javascript:void(0);" onclick="popUpSocmed('https://twitter.com/intent/tweet?url={{ url('event-' . $event->id . '-' . '.html') }}&text={{ $event->title }}');return false" class="share-link">
+
+                                <!-- Twitter Share -->
+                                <a href="https://twitter.com/intent/tweet?url={{ url('event-' . $event->id . '.html') }}&text={{ $event->title }}" target="_blank" class="share-link">
                                     <img src="{{ asset('assets/fe/img/icon_twitter.png') }}" alt="twitter">
                                 </a>
-                                <a href="javascript:void(0);" onclick="popUpSocmed('https://api.whatsapp.com/send?text={{ url('event-' . $event->id . '-' . '.html') }}','myWindow','600','300','yes');return false" data-action="share/whatsapp/share" class="share-link">
+
+                                <!-- WhatsApp Share -->
+                                <a href="https://api.whatsapp.com/send?text={{ url('event-' . $event->id . '.html') }}" target="_blank" class="share-link">
                                     <img src="{{ asset('assets/fe/img/icon_whatsapp.png') }}" alt="whatsapp">
                                 </a>
                             </div>
+
                         </div>
                     </div>
                 </div>

@@ -175,17 +175,31 @@ class UserViewController extends Controller
             // Pass data to the view
             return view('event.' . $file, compact('events', 'eventCategories', 'categorySelected', 's'));
         } elseif (array_key_exists($slug, $articlePages)) {
-            // Identify the view file to use
-            $file = $articlePages[$slug];
 
             // Retrieve search and filter parameters
             $s = $request->get('s', '');
             $categorySelected = $request->get('category');
 
-            // Query events with filters
+            // Determine if it's the 'cimanews' page
+            $isCimanews = ($slug === 'cimanews');
+            $pageTitle = $isCimanews ? 'Cimanews' : 'Artikel';
+
+            // Query articles with filters
             $articles = Article::with('category') // Assuming a 'category' relationship exists
                 ->when($categorySelected, function ($query, $categorySelected) {
                     return $query->where('category_id', $categorySelected);
+                })
+                ->when($pageTitle === 'Cimanews', function ($query) {
+                    // Include only articles in the Cimanews category
+                    return $query->whereHas('category', function ($query) {
+                        $query->where('name', 'Cimanews'); // Adjust the column name as needed
+                    });
+                })
+                ->when($pageTitle !== 'Cimanews', function ($query) {
+                    // Exclude articles in the Cimanews category
+                    return $query->whereDoesntHave('category', function ($query) {
+                        $query->where('name', 'Cimanews'); // Adjust the column name as needed
+                    });
                 })
                 ->when($s, function ($query, $s) {
                     return $query->where('title', 'like', '%' . $s . '%'); // Assuming 'title' is the searchable field
@@ -193,10 +207,13 @@ class UserViewController extends Controller
                 ->paginate(8); // Adjust pagination as needed
 
             // Fetch all categories for filtering
-            $articleCategories = ArticleCategory::all();
+            $articleCategories = ArticleCategory::where('name', '!=', 'Cimanews')->get();
 
             // Pass data to the view
-            return view('article.' . $file, compact('articles', 'articleCategories', 'categorySelected', 's'));
+            return view('article.article', compact('articles', 'articleCategories', 'categorySelected', 's', 'pageTitle'));
+        } elseif (array_key_exists($slug, $contactPages)) {
+
+            return view('contact.contact');
         }
 
         // If no match is found, return 404
@@ -220,7 +237,26 @@ class UserViewController extends Controller
     public function articleDetail($id)
     {
         $article = Article::with('category')->findOrFail($id); // Load article and its related category
-        $relatedArticles = Article::whereNotIn('id', [$id])->limit(4)->get(); // Fetch related articles excluding the current one
-        return view('article.articleDetail', compact('article', 'relatedArticles'));
+
+        $pageTitle = $article->category->name == 'Cimanews' ? 'Cimanews' : 'Artikel';
+
+        // Check if pageTitle is 'Cimanews'
+        if ($pageTitle === 'Cimanews') {
+            // Fetch related articles where the category is 'Cimanews'
+            $relatedArticles = Article::where('category_id', $article->category_id)
+                ->whereNotIn('id', [$id])
+                ->limit(4)
+                ->get();
+        } else {
+            // Fetch related articles excluding the 'Cimanews' category
+            $relatedArticles = Article::whereDoesntHave('category', function ($query) {
+                $query->where('name', 'Cimanews'); // Assuming 'name' is the column for category names
+            })
+                ->whereNotIn('id', [$id])
+                ->limit(4)
+                ->get();
+        }
+
+        return view('article.articleDetail', compact('article', 'relatedArticles', 'pageTitle'));
     }
 }

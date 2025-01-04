@@ -17,7 +17,7 @@ class CareerController extends Controller
     {
         $careers = Career::get();
 
-        //render view with products
+
         return view('admin.careers.index', compact('careers'));
     }
 

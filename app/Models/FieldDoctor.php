@@ -15,6 +15,6 @@ class FieldDoctor extends Model
 
     public function doctors()
     {
-        return $this->hasMany(Doctor::class, 'field_id'); // 'field_id' is the foreign key in the `doctors` table
+        return $this->hasMany(Doctor::class, 'field_id');
     }
 }

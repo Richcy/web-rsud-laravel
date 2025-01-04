@@ -17,7 +17,7 @@ class EventController extends Controller
     {
         $events = Event::get();
 
-        //render view with products
+
         return view('admin.events.index', compact('events'));
     }
 

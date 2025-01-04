@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('doctors', function (Blueprint $table) {
-            // Add the field_id column as a foreign key
-            $table->unsignedBigInteger('field_id')->nullable()->after('name'); // Place it after 'name' or adjust as needed
+
+            $table->unsignedBigInteger('field_id')->nullable()->after('name');
             $table->foreign('field_id')->references('id')->on('field_doctors')->onDelete('cascade');
         });
     }

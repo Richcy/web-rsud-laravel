@@ -15,7 +15,7 @@ use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\CareerController;
 use Illuminate\Support\Facades\Route;
 
-// Default home page route
+
 Route::get('/', [UserViewController::class, 'index']);
 
 Route::get('/inner', function () {
@@ -34,14 +34,14 @@ Route::get('/cimanews/{id}', [UserViewController::class, 'articleDetail'])->name
 
 
 Route::prefix('admin')->group(function () {
-    // Admin Authentication Routes
+
     Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
     Route::post('login', [AdminAuthController::class, 'login']);
     Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     Route::get('/register', [AdminViewController::class, 'register']);
     Route::get('/forgot-password', [AdminViewController::class, 'forgotPassword']);
 
-    // Admin Routes (Protected by auth.admin custom middleware)
+
     Route::middleware('auth.admin')->group(function () {
         Route::get('/index', [AdminViewController::class, 'index'])->name('admin.index');
         Route::get('/buttons', [AdminViewController::class, 'buttons']);
@@ -78,10 +78,10 @@ Route::prefix('admin')->group(function () {
         Route::delete('/kategori-artikel/{id}', [ArticleCategoryController::class, 'destroyArticleCategory'])->name('article.destroyArticleCategory');
         Route::resource('karir', CareerController::class);
 
-        // Route for getting the service by type
+
         Route::get('/{slug}', [ServiceController::class, 'showPage'])->name('admin.page.type');
 
-        // Route for updating the service by type
+
         Route::put('/{slug}', [ServiceController::class, 'updatePage'])->name('admin.page.update');
     });
 });

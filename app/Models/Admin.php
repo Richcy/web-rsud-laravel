@@ -3,15 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable; // Make sure to use this
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Admin extends Authenticatable // Extend Authenticatable
+class Admin extends Authenticatable
 {
-    use HasFactory, Notifiable; // Include Notifiable if you need notifications
+    use HasFactory, Notifiable;
 
     protected $fillable = [
-        'username', 'password', 'name', 'email', 'role'
+        'username',
+        'password',
+        'name',
+        'email',
+        'role'
     ];
 
     protected $hidden = [

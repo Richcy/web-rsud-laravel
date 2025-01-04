@@ -16,15 +16,15 @@ class UserViewController extends Controller
 
     public function index()
     {
-        // Retrieve and group required services by type
+
         $groupedServices = Service::whereIn('type', ['aboutDirectur', 'aboutNotice', 'aboutQuality', 'aboutOrganization'])
             ->get()
             ->keyBy('type');
 
-        // Retrieve all doctors
+
         $doctors = Doctor::all();
 
-        // Pass only the required variables to the view
+
         return view('index', [
             'directur' => $groupedServices->get('aboutDirectur'),
             'notice' => $groupedServices->get('aboutNotice'),
@@ -36,7 +36,7 @@ class UserViewController extends Controller
 
     public function showPage(string $slug, Request $request)
     {
-        // Create an associative array to map the values for about pages
+
         $aboutPages = [
             'profil-rumah-sakit' => 'aboutProfile',
             'sambutan-direktur' => 'aboutDirectur',
@@ -48,7 +48,7 @@ class UserViewController extends Controller
             'standard-pelayanan' => 'aboutStandard'
         ];
 
-        // Create an associative array to map the URL slug to the service type
+
         $servicePages = [
             'layanan-unggulan' => 'serviceSuperior',
             'instalasi-rawat-jalan' => 'serviceOutpatientInstallation',
@@ -67,25 +67,25 @@ class UserViewController extends Controller
             'dokter' => 'doctor',
         ];
 
-        // Add the event page mapping
+
         $eventPages = [
-            'event' => 'event', // Slug for events
+            'event' => 'event',
         ];
 
         $articlePages = [
-            'artikel' => 'article', // Slug for events
+            'artikel' => 'article',
             'cimanews' => 'cimanews'
         ];
 
         $contactPages = [
-            'kontak' => 'contact', // Slug for events
+            'kontak' => 'contact',
         ];
 
         $careerPages = [
-            'karir' => 'career', // Slug for events
+            'karir' => 'career',
         ];
 
-        // Check if the slug is in the 'about' array
+
         if (array_key_exists($slug, $aboutPages)) {
             $type = $aboutPages[$slug];
             $service = Service::where('type', $type)->first();
@@ -105,10 +105,10 @@ class UserViewController extends Controller
                 'aboutStandard' => 'standard'
             ];
 
-            // Use the mapping to get the type; default to $type if not found
+
             $file = $aboutFiles[$type] ?? $type;
 
-            // Dynamically render a view based on the type
+
             return view('about.' . $file, compact('service'));
         } elseif (array_key_exists($slug, $servicePages)) {
             $type = $servicePages[$slug];
@@ -132,10 +132,10 @@ class UserViewController extends Controller
                 'serviceComplaint' => 'complaint'
             ];
 
-            // Use the mapping to get the type; default to $type if not found
+
             $file = $serviceFiles[$type] ?? $type;
 
-            // Dynamically render a view based on the type
+
             return view('service.' . $file, compact('service'));
         } elseif (array_key_exists($slug, $doctorPages)) {
             $file = $doctorPages[$slug];
@@ -152,71 +152,71 @@ class UserViewController extends Controller
             $doctorFields = FieldDoctor::all();
             return view('doctor.' . $file, compact('doctors', 'doctorFields', 'fieldSelected', 's'));
         } elseif (array_key_exists($slug, $eventPages)) {
-            // Identify the view file to use
+
             $file = $eventPages[$slug];
 
-            // Retrieve search and filter parameters
+
             $s = $request->get('s', '');
             $categorySelected = $request->get('category');
 
-            // Query events with filters
-            $events = Event::with('category') // Assuming a 'category' relationship exists
+
+            $events = Event::with('category')
                 ->when($categorySelected, function ($query, $categorySelected) {
                     return $query->where('category_id', $categorySelected);
                 })
                 ->when($s, function ($query, $s) {
-                    return $query->where('title', 'like', '%' . $s . '%'); // Assuming 'title' is the searchable field
+                    return $query->where('title', 'like', '%' . $s . '%');
                 })
-                ->paginate(8); // Adjust pagination as needed
+                ->paginate(8);
 
-            // Fetch all categories for filtering
+
             $eventCategories = EventCategory::all();
 
-            // Pass data to the view
+
             return view('event.' . $file, compact('events', 'eventCategories', 'categorySelected', 's'));
         } elseif (array_key_exists($slug, $articlePages)) {
 
-            // Retrieve search and filter parameters
+
             $s = $request->get('s', '');
             $categorySelected = $request->get('category');
 
-            // Determine if it's the 'cimanews' page
+
             $isCimanews = ($slug === 'cimanews');
             $pageTitle = $isCimanews ? 'Cimanews' : 'Artikel';
 
-            // Query articles with filters
-            $articles = Article::with('category') // Assuming a 'category' relationship exists
+
+            $articles = Article::with('category')
                 ->when($categorySelected, function ($query, $categorySelected) {
                     return $query->where('category_id', $categorySelected);
                 })
                 ->when($pageTitle === 'Cimanews', function ($query) {
-                    // Include only articles in the Cimanews category
+
                     return $query->whereHas('category', function ($query) {
-                        $query->where('name', 'Cimanews'); // Adjust the column name as needed
+                        $query->where('name', 'Cimanews');
                     });
                 })
                 ->when($pageTitle !== 'Cimanews', function ($query) {
-                    // Exclude articles in the Cimanews category
+
                     return $query->whereDoesntHave('category', function ($query) {
-                        $query->where('name', 'Cimanews'); // Adjust the column name as needed
+                        $query->where('name', 'Cimanews');
                     });
                 })
                 ->when($s, function ($query, $s) {
-                    return $query->where('title', 'like', '%' . $s . '%'); // Assuming 'title' is the searchable field
+                    return $query->where('title', 'like', '%' . $s . '%');
                 })
-                ->paginate(8); // Adjust pagination as needed
+                ->paginate(8);
 
-            // Fetch all categories for filtering
+
             $articleCategories = ArticleCategory::where('name', '!=', 'Cimanews')->get();
 
-            // Pass data to the view
+
             return view('article.article', compact('articles', 'articleCategories', 'categorySelected', 's', 'pageTitle'));
         } elseif (array_key_exists($slug, $contactPages)) {
 
             return view('contact.contact');
         }
 
-        // If no match is found, return 404
+
         return abort(404);
     }
 
@@ -229,28 +229,28 @@ class UserViewController extends Controller
 
     public function eventDetail($id)
     {
-        $event = Event::with('category')->findOrFail($id); // Load event and its related category
-        $relatedEvents = Event::whereNotIn('id', [$id])->limit(4)->get(); // Fetch related events excluding the current one
+        $event = Event::with('category')->findOrFail($id);
+        $relatedEvents = Event::whereNotIn('id', [$id])->limit(4)->get();
         return view('event.eventDetail', compact('event', 'relatedEvents'));
     }
 
     public function articleDetail($id)
     {
-        $article = Article::with('category')->findOrFail($id); // Load article and its related category
+        $article = Article::with('category')->findOrFail($id);
 
         $pageTitle = $article->category->name == 'Cimanews' ? 'Cimanews' : 'Artikel';
 
-        // Check if pageTitle is 'Cimanews'
+
         if ($pageTitle === 'Cimanews') {
-            // Fetch related articles where the category is 'Cimanews'
+
             $relatedArticles = Article::where('category_id', $article->category_id)
                 ->whereNotIn('id', [$id])
                 ->limit(4)
                 ->get();
         } else {
-            // Fetch related articles excluding the 'Cimanews' category
+
             $relatedArticles = Article::whereDoesntHave('category', function ($query) {
-                $query->where('name', 'Cimanews'); // Assuming 'name' is the column for category names
+                $query->where('name', 'Cimanews');
             })
                 ->whereNotIn('id', [$id])
                 ->limit(4)

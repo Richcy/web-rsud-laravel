@@ -17,7 +17,7 @@ class ArticleController extends Controller
     {
         $articles = Article::get();
 
-        //render view with products
+
         return view('admin.articles.article.index', compact('articles'));
     }
 

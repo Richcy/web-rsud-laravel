@@ -17,10 +17,10 @@ class ProductController extends Controller
      */
     public function index(): View
     {
-        //get all products
+
         $products = Product::get();
 
-        //render view with products
+
         return view('admin.products.index', compact('products'));
     }
 
@@ -42,7 +42,7 @@ class ProductController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //validate form
+
         $request->validate([
             'image'         => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'title'         => 'required|min:5',
@@ -51,11 +51,11 @@ class ProductController extends Controller
             'stock'         => 'required|numeric'
         ]);
 
-        //upload image
+
         $image = $request->file('image');
         $image->storeAs('public/products', $image->hashName());
 
-        //create product
+
         Product::create([
             'image'         => $image->hashName(),
             'title'         => $request->title,
@@ -64,25 +64,25 @@ class ProductController extends Controller
             'stock'         => $request->stock
         ]);
 
-        //redirect to index
+
         return redirect()->route('products.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     public function show(string $id): View
     {
-        //get product by ID
+
         $product = Product::findOrFail($id);
 
-        //render view with product
+
         return view('admin.products.show', compact('product'));
     }
 
     public function edit(string $id): View
     {
-        //get product by ID
+
         $product = Product::findOrFail($id);
 
-        //render view with product
+
         return view('admin.products.edit', compact('product'));
     }
 
@@ -95,7 +95,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        //validate form
+
         $request->validate([
             'image'         => 'image|mimes:jpeg,jpg,png|max:2048',
             'title'         => 'required|min:5',
@@ -104,20 +104,20 @@ class ProductController extends Controller
             'stock'         => 'required|numeric'
         ]);
 
-        //get product by ID
+
         $product = Product::findOrFail($id);
 
-        //check if image is uploaded
+
         if ($request->hasFile('image')) {
 
-            //upload new image
+
             $image = $request->file('image');
             $image->storeAs('public/products', $image->hashName());
 
-            //delete old image
+
             Storage::delete('public/products/' . $product->image);
 
-            //update product with new image
+
             $product->update([
                 'image'         => $image->hashName(),
                 'title'         => $request->title,
@@ -127,7 +127,7 @@ class ProductController extends Controller
             ]);
         } else {
 
-            //update product without image
+
             $product->update([
                 'title'         => $request->title,
                 'description'   => $request->description,
@@ -136,22 +136,22 @@ class ProductController extends Controller
             ]);
         }
 
-        //redirect to index
+
         return redirect()->route('products.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     public function destroy($id): RedirectResponse
     {
-        //get product by ID
+
         $product = Product::findOrFail($id);
 
-        //delete image
+
         Storage::delete('public/products/' . $product->image);
 
-        //delete product
+
         $product->delete();
 
-        //redirect to index
+
         return redirect()->route('products.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Event;
 use App\Models\EventCategory;
 use App\Models\Article;
 use App\Models\ArticleCategory;
+use App\Models\Career;
 
 class UserViewController extends Controller
 {
@@ -214,8 +215,18 @@ class UserViewController extends Controller
         } elseif (array_key_exists($slug, $contactPages)) {
 
             return view('contact.contact');
-        }
+        } elseif (array_key_exists($slug, $careerPages)) {
 
+            $s = $request->get('s', '');
+
+            $careers = Career::query()
+                ->when($s, function ($query, $s) {
+                    return $query->where('title', 'like', '%' . $s . '%');
+                })
+                ->paginate(8);
+
+            return view('career.career', compact('careers', 's'));
+        }
 
         return abort(404);
     }
@@ -258,5 +269,12 @@ class UserViewController extends Controller
         }
 
         return view('article.articleDetail', compact('article', 'relatedArticles', 'pageTitle'));
+    }
+
+    public function careerDetail($id)
+    {
+        $career = Career::findOrFail($id);
+        $relatedCareers = Career::whereNotIn('id', [$id])->limit(4)->get();
+        return view('career.careerDetail', compact('career', 'relatedCareers'));
     }
 }

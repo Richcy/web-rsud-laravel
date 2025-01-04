@@ -32,6 +32,8 @@ Route::get('/artikel/{id}', [UserViewController::class, 'articleDetail'])->name(
 
 Route::get('/cimanews/{id}', [UserViewController::class, 'articleDetail'])->name('cimanews.detail');
 
+Route::get('/karir/{id}', [UserViewController::class, 'careerDetail'])->name('career.detail');
+
 
 Route::prefix('admin')->group(function () {
 

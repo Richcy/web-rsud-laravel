@@ -59,31 +59,29 @@
 
       <!-- ======= Doctors Section ======= -->
       <section id="doctors" class="doctors">
-        <div class="container" data-aos="fade-up">
-          <div class="row">
-            @forelse ($doctors as $doctor)
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-              <div class="member" data-aos="fade-up" data-aos-delay="100">
-                <a href="{{ route('doctor.detail', ['id' => $doctor->id]) }}">
-                  <div class="member-img">
-                    <img src="{{ asset('/storage/' . $doctor->img) }}" class="img-fluid" alt="{{ $doctor->name }}">
-                  </div>
-                  <div class="member-info">
-                    <h4>{{ $doctor->name }}</h4>
-                    <span>{{ $doctor->field->name ?? 'No Field Assigned' }}</span>
-                  </div>
-                </a>
-              </div>
+        <div class="row" id="list">
+          @forelse ($doctors as $doctor)
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member" data-aos="fade-up" data-aos-delay="100">
+              <a href="{{ route('doctor.detail', ['id' => $doctor->id]) }}">
+                <div class="member-img">
+                  <img src="{{ asset('/storage/' . $doctor->img) }}" class="img-fluid" alt="{{ $doctor->name }}">
+                </div>
+                <div class="member-info">
+                  <h4>{{ $doctor->name }}</h4>
+                  <span>{{ $doctor->field->name ?? 'No Field Assigned' }}</span>
+                </div>
+              </a>
             </div>
-            @empty
-            <p class="empty-data">Data dokter tidak tersedia</p>
-            @endforelse
           </div>
-          <div class="listbox-pagination">
-            {{ $doctors->links() }}
-          </div>
+          @empty
+          <p class="empty-data">Data dokter tidak tersedia</p>
+          @endforelse
         </div>
-      </section><!-- End Doctors Section -->
+        <div class="listbox-pagination">
+          {{ $doctors->links() }}
+        </div>
+      </section>
     </div>
   </section>
 </main>

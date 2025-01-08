@@ -166,7 +166,7 @@
             </div>
             <div class="member-info">
               <h4>{{ $doctor->name }}</h4>
-              <span>{{ $doctor->field }}</span>
+              <span>{{ $doctor->field->name }}</span>
             </div>
           </div>
         </div>
@@ -175,46 +175,66 @@
 
       <div class="row row-home-doctor">
         <div class="button-doctor">
-          <a href="#" class="btn btn-primary btn-doctor">Dokter Lainnya</a>
+          <a href="{{ url('/dokter') }}" class="btn btn-primary btn-doctor">Dokter Lainnya</a>
         </div>
       </div>
-    </div>
 
+    </div>
   </section><!-- End Doctors Section -->
 
   <!-- ======= Cimanews Section ======= -->
-  <section id="doctors" class="doctors section-bg">
+  <section id="cimanews" class="cimanews section-bg">
     <div class="container" data-aos="fade-up">
 
       <div class="section-title mt-4">
         <h2>CIMANews</h2>
       </div>
 
-      <div class="row">
-        @foreach($doctors as $doctor)
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-          <div class="member" data-aos="fade-up" data-aos-delay="100">
-            <div class="member-img">
-              <img src="{{ asset('/storage/'.$doctor->img) }}" class="img-fluid" alt="{{ $doctor->name }}">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
+      <div class="row-listbox">
+        <!-- Looping article -->
+        @forelse ($articles as $article)
+        <div class="col-listbox col-box-home">
+          <div class="listboxd-wrap">
+            @php
+            $imageUrl = $article->img ? asset('storage/' . $article->img) : asset('storage/default-image.jpg');
+            @endphp
+            <a href="{{ route('cimanews.detail', ['id' => $article->id]) }}" class="listboxd-img" style="background-image: url('{{ $imageUrl }}')">
+
+              <span style="opacity: 0;">
+                {{ $article->title }}
+              </span>
+            </a>
+            <div class="listboxd-content">
+              <a href="{{ route('cimanews.detail', ['id' => $article->id]) }}" class="listboxd-title min-heigt-title">
+                {{ $article->title }}
+              </a>
+              <div class="listboxd-desc" id="desc_card">
+                {{ $article->sub_desc ? substr($article->sub_desc, 0, 150) : substr($article->description, 0, 150) }}...
               </div>
-            </div>
-            <div class="member-info">
-              <h4>{{ $doctor->name }}</h4>
-              <span>{{ $doctor->field }}</span>
+              <div class="row up2 top-footer-card">
+                <div class="col-xs-6 pad0">
+                  <div class="listboxd-category">
+                    {{ $article->category_name }}
+                  </div>
+                </div>
+                <div class="col-xs-6 pad0">
+                  <div class="listboxd-read">
+                    <a href="{{ route('cimanews.detail', ['id' => $article->id]) }}">Detail</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        @endforeach
+        @empty
+        <!-- End looping article -->
+        <p class="empty-data">Data {{$pageTitle}} tidak tersedia</p>
+        @endforelse
       </div>
 
       <div class="row row-home-doctor">
         <div class="button-doctor">
-          <a href="#" class="btn btn-primary btn-doctor">Berita Lainnya</a>
+          <a href="{{ url('/cimanews') }}" class="btn btn-primary btn-doctor">Berita Lainnya</a>
         </div>
       </div>
     </div>

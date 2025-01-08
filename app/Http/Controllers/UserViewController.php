@@ -23,7 +23,13 @@ class UserViewController extends Controller
             ->keyBy('type');
 
 
-        $doctors = Doctor::all();
+        $doctors = Doctor::with('field')->get();
+        $articles = Article::whereHas('category', function ($query) {
+            $query->where('name', 'cimanews'); // Assuming 'name' is the category column
+        })
+            ->limit(4) // Limit the results to 4 articles
+            ->get();
+
 
 
         return view('index', [
@@ -32,6 +38,7 @@ class UserViewController extends Controller
             'quality' => $groupedServices->get('aboutQuality'),
             'organization' => $groupedServices->get('aboutOrganization'),
             'doctors' => $doctors,
+            'articles' => $articles
         ]);
     }
 

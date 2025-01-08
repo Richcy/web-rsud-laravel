@@ -119,13 +119,14 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ $doctor->schedule->senin ?: '-' }}</td>
-                            <td>{{ $doctor->schedule->selasa ?: '-' }}</td>
-                            <td>{{ $doctor->schedule->rabu ?: '-' }}</td>
-                            <td>{{ $doctor->schedule->kamis ?: '-' }}</td>
-                            <td>{{ $doctor->schedule->jumat ?: '-' }}</td>
-                            <td>{{ $doctor->schedule->sabtu ?: '-' }}</td>
-                            <td>{{ $doctor->schedule->minggu ?: '-' }}</td>
+                            <td>{{ $doctor->schedule->senin ?? '-' }}</td>
+                            <td>{{ $doctor->schedule->selasa ?? '-' }}</td>
+                            <td>{{ $doctor->schedule->rabu ?? '-' }}</td>
+                            <td>{{ $doctor->schedule->kamis ?? '-' }}</td>
+                            <td>{{ $doctor->schedule->jumat ?? '-' }}</td>
+                            <td>{{ $doctor->schedule->sabtu ?? '-' }}</td>
+                            <td>{{ $doctor->schedule->minggu ?? '-' }}</td>
+
                         </tr>
                     </tbody>
                 </table>

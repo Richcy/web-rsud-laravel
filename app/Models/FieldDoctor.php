@@ -13,8 +13,8 @@ class FieldDoctor extends Model
         'lang'
     ];
 
-    public function doctors()
+    public function doctor()
     {
-        return $this->hasMany(Doctor::class, 'field_id');
+        return $this->hasOne(Doctor::class, 'field_id');
     }
 }

@@ -50,18 +50,6 @@
                             <th>SIP</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Action</th>
-                            <th>#</th>
-                            <th>Image</th>
-                            <th>Nama</th>
-                            <th>Bidang Keahlian</th>
-                            <th>Kantor/Unit Kerja</th>
-                            <th>NIP</th>
-                            <th>SIP</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($doctors as $doctor)
                         <tr>
@@ -78,7 +66,7 @@
                                 <img src="{{ asset('/storage/'.$doctor->img) }}" class="rounded" style="width: 150px">
                             </td>
                             <td>{{ $doctor->name }}</td>
-                            <td>{{ $doctor->field }}</td>
+                            <td>{{ $doctor->field->name }}</td>
                             <td>{{ $doctor->office }}</td>
                             <td>{{ $doctor->nip }}</td>
                             <td>{{ $doctor->sip }}</td>

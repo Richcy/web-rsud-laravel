@@ -21,7 +21,8 @@ class DoctorController extends Controller
 
     public function create(): View
     {
-        return view('admin.doctors.doctor.create');
+        $fieldDoctors = FieldDoctor::get();
+        return view('admin.doctors.doctor.create', compact('fieldDoctors'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -32,7 +33,7 @@ class DoctorController extends Controller
             'office' => 'required',
             'nip' => 'required',
             'sip' => 'required',
-            'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'img' => 'required|image|mimes:jpeg,jpg,png',
         ]);
 
         $img = $request->file('img');
@@ -42,12 +43,11 @@ class DoctorController extends Controller
 
         Doctor::create([
             'name' => $request->name,
-            'field' => $request->field,
+            'field_id' => $request->field,
             'office' => $request->office,
             'nip' => $request->nip,
             'sip' => $request->sip,
             'img' => $path,
-            'lang' => 'id',
         ]);
 
         return redirect()->route('dokter.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -62,7 +62,8 @@ class DoctorController extends Controller
     public function edit(string $id): View
     {
         $doctor = Doctor::findOrFail($id);
-        return view('admin.doctors.doctor.edit', compact('doctor'));
+        $fieldDoctors = FieldDoctor::get();
+        return view('admin.doctors.doctor.edit', compact('doctor', 'fieldDoctors'));
     }
 
     public function update(Request $request, string $id): RedirectResponse
@@ -73,29 +74,34 @@ class DoctorController extends Controller
             'office' => 'required',
             'nip' => 'required',
             'sip' => 'required',
-            'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'img' => 'required|image|mimes:jpeg,jpg,png',
         ]);
 
         $doctor = Doctor::findOrFail($id);
 
         if ($request->hasFile('img')) {
             $img = $request->file('img');
-            $img->storeAs('public/doctors', $img->hashName());
+            $doctorName = $request->name;
+            $timestamp = now()->format('d-m-Y_H-i-s');
+            $imgName = $doctorName . '_' . $timestamp . '.' . $img->getClientOriginalExtension();
 
-            Storage::delete('public/doctors/' . $doctor->img);
+            $path = $img->storeAs('doctors', $imgName, 'public');
+            if ($doctor->img) {
 
+                Storage::delete('public/' . $doctor->img);
+            }
             $doctor->update([
                 'name' => $request->name,
-                'field' => $request->field,
+                'field_id' => $request->field,
                 'office' => $request->office,
                 'nip' => $request->nip,
                 'sip' => $request->sip,
-                'img' => $img->hashName(),
+                'img' => $path,
             ]);
         } else {
             $doctor->update([
                 'name' => $request->name,
-                'field' => $request->field,
+                'field_id' => $request->field,
                 'office' => $request->office,
                 'nip' => $request->nip,
                 'sip' => $request->sip,
@@ -116,7 +122,7 @@ class DoctorController extends Controller
     public function showFieldDoctor(): View
     {
         $fieldDoctors = FieldDoctor::get();
-        return view('admin.doctors.doctorfield.index', compact('fieldDoctors'));
+        return view('admin.doctors.doctor_field.index', compact('fieldDoctors'));
     }
 
     public function storeFieldDoctor(Request $request): RedirectResponse
@@ -156,7 +162,7 @@ class DoctorController extends Controller
         $filterDoctor = $doctors->whereNotIn('id', $filterDoctor);
         $featuredDoctorCount = $featuredDoctors->count();
 
-        return view('admin.doctors.featureddoctor.index', compact('doctors', 'featuredDoctors', 'filterDoctor', 'featuredDoctorCount'));
+        return view('admin.doctors.featured_doctor.index', compact('doctors', 'featuredDoctors', 'filterDoctor', 'featuredDoctorCount'));
     }
 
 

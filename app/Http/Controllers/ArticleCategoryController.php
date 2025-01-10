@@ -11,7 +11,7 @@ class ArticleCategoryController extends Controller
 {
     public function showArticleCategory(): View
     {
-        $articleCategories = ArticleCategory::get();
+        $articleCategories = ArticleCategory::where('name', '!=', 'Cimanews')->get();
         return view('admin.articles.article_category.index', compact('articleCategories'));
     }
 

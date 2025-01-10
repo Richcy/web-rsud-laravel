@@ -54,22 +54,6 @@
                             <th>end_time</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Action</th>
-                            <th>#</th>
-                            <th>Poster</th>
-                            <th>title</th>
-                            <th>description</th>
-                            <th>category</th>
-                            <th>location</th>
-                            <th>url</th>
-                            <th>start_date</th>
-                            <th>end_date</th>
-                            <th>start_time</th>
-                            <th>end_time</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($events as $event)
                         <tr>
@@ -88,7 +72,7 @@
                             </td>
                             <td>{{ $event->title }}</td>
                             <td>{{ $event->description }}</td>
-                            <td>{{ $event->category }}</td>
+                            <td>{{ $event->category->name }}</td>
                             <td>{{ $event->location }}</td>
                             <td>{{ $event->url }}</td>
                             <td>{{ $event->start_date }}</td>

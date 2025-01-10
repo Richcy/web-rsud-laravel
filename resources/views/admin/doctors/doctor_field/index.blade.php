@@ -42,13 +42,6 @@
                             <th>Nama</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Action</th>
-                            <th>#</th>
-                            <th>Nama</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($fieldDoctors as $fd)
                         <tr>
@@ -79,7 +72,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Data</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Bidang Dokter</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -88,7 +81,7 @@
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3" style="margin-top: 2%;">
-                        <label class="form-label">Nama</label>
+                        <label class="form-label">Nama Bidang Dokter</label>
                         <input type="text" class="form-control" id="name" name="name">
                     </div>
                 </div>

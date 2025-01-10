@@ -55,23 +55,6 @@
                             <th>Minggu</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th rowspan="2" class="row-2">Action</th>
-                            <th rowspan="2" class="row-2">#</th>
-                            <th rowspan="2" class="row-2">Dokter</th>
-                            <th colspan="7" style="text-align: center;">Jadwal</th>
-                        </tr>
-                        <tr>
-                            <th>Senin</th>
-                            <th>Selasa</th>
-                            <th>Rabu</th>
-                            <th>Kamis</th>
-                            <th>Jumat</th>
-                            <th>Sabtu</th>
-                            <th>Minggu</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($doctorSchedules as $ds)
                         <tr>

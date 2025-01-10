@@ -67,7 +67,7 @@
                             <td>{{ $article->author }}</td>
                             <td>{{ $article->title }}</td>
                             <td>{{ $article->description }}</td>
-                            <td>{{ $article->category }}</td>
+                            <td>{{ $article->category->name }}</td>
                         </tr>
                         @endforeach
                     </tbody>

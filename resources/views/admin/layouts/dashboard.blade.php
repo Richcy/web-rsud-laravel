@@ -158,7 +158,7 @@
                         <h6 class="collapse-header">Artikel:</h6>
                         <a class="collapse-item" href="{{ url('/admin/kategori-artikel') }}">Kategori Artikel</a>
                         <a class="collapse-item" href="{{ url('/admin/artikel') }}">Artikel</a>
-                        <a class="collapse-item" href="{{ url('/admin/cimanews') }}">Cimanews</a>
+                        <!-- <a class="collapse-item" href="{{ url('/admin/cimanews') }}">Cimanews</a> -->
                     </div>
                 </div>
             </li>
@@ -172,7 +172,7 @@
                 <div id="collapseCareer" class="collapse" aria-labelledby="headingCareer" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Career:</h6>
-                        <a class="collapse-item" href="{{ url('/admin/karir') }}">career</a>
+                        <a class="collapse-item" href="{{ url('/admin/karir') }}">Karir</a>
                     </div>
                 </div>
             </li>

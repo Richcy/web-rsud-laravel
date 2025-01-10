@@ -42,13 +42,6 @@
                             <th>Nama</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Action</th>
-                            <th>#</th>
-                            <th>Nama</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($articleCategories as $ac)
                         <tr>

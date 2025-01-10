@@ -49,14 +49,6 @@
                             <th>Nama</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Action</th>
-                            <th>#</th>
-                            <th>Image</th>
-                            <th>Nama</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($featuredDoctors as $fd)
                         <tr>

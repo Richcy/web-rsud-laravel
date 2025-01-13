@@ -13,7 +13,7 @@
         @csrf
         <div class="form-group mb-3">
             <label class="font-weight-bold">Nama Dokter</label>
-            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" placeholder="">
+            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="">
 
             <!-- error message untuk name -->
             @error('name')
@@ -45,7 +45,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">Kantor/Unit Kerja</label>
-            <input type="text" class="form-control @error('office') is-invalid @enderror" name="office" value="" placeholder="">
+            <input type="text" class="form-control @error('office') is-invalid @enderror" name="office" value="{{ old('office') }}" placeholder="">
 
             <!-- error message untuk name -->
             @error('office')
@@ -57,7 +57,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">NIP</label>
-            <input type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" value="" placeholder="">
+            <input type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" value="{{ old('nip') }}" placeholder="">
 
             <!-- error message untuk nip -->
             @error('nip')
@@ -69,7 +69,7 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">SIP</label>
-            <input type="text" class="form-control @error('sip') is-invalid @enderror" name="sip" value="" placeholder="">
+            <input type="text" class="form-control @error('sip') is-invalid @enderror" name="sip" value="{{ old('sip') }}" placeholder="">
 
             <!-- error message untuk sip -->
             @error('sip')
@@ -89,6 +89,7 @@
                     class="form-control @error('img') is-invalid @enderror"
                     name="img"
                     id="imgInput"
+                    value="{{ old('img') }}"
                     accept="image/*"
                     onchange="previewImage(event)">
             </div>

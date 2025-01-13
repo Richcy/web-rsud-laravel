@@ -17,7 +17,12 @@
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
+    @elseif (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
     @endif
+
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Dokter</h1>

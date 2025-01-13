@@ -7,9 +7,9 @@ use Illuminate\View\View;
 use App\Models\Doctor;
 use App\Models\FieldDoctor;
 use App\Models\FeaturedDoctor;
-use App\Models\DoctorSchedule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class DoctorController extends Controller
 {
@@ -38,7 +38,8 @@ class DoctorController extends Controller
 
         $img = $request->file('img');
         $doctorName = $request->name;
-        $imgName = $doctorName . '.' . $request->file('img')->getClientOriginalExtension();
+        $timestamp = now()->format('d-m-Y_H-i-s');
+        $imgName = $doctorName . '_' . $timestamp . '.' . $img->getClientOriginalExtension();
         $path = $img->storeAs('doctors', $imgName, 'public');
 
         Doctor::create([
@@ -114,9 +115,16 @@ class DoctorController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         $doctor = Doctor::findOrFail($id);
-        Storage::delete('public/doctors/' . $doctor->image);
-        $doctor->delete();
-        return redirect()->route('dokter.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        $img = str_replace('events/', '', $doctor->img);
+        $path = 'public/events/' . $img;
+        if (Storage::exists($path)) {
+            Storage::delete($path);
+            $event->delete();
+            return redirect()->route('dokter.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        } else {
+            Log::warning("File not found for deletion: " . $path);
+            return redirect()->route('dokter.index')->with(['error' => 'File poster tidak ditemukan. Data gagal dihapus.']);
+        }
     }
 
     public function showFieldDoctor(): View

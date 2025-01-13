@@ -17,7 +17,12 @@
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
+    @elseif (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
     @endif
+
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Event</h1>
@@ -43,15 +48,15 @@
                             <th>Action</th>
                             <th>#</th>
                             <th>Poster</th>
-                            <th>title</th>
-                            <th>description</th>
-                            <th>category</th>
-                            <th>location</th>
-                            <th>url</th>
-                            <th>start_date</th>
-                            <th>end_date</th>
-                            <th>start_time</th>
-                            <th>end_time</th>
+                            <th>Judul</th>
+                            <th>Deskripsi</th>
+                            <th>Kategori</th>
+                            <th>Lokasi</th>
+                            <th>URL</th>
+                            <th>Tanggal Mulai</th>
+                            <th>Tanggal Selesai</th>
+                            <th>Waktu Mulai</th>
+                            <th>Waktu Selesai</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,7 +64,6 @@
                         <tr>
                             <td class="text-center">
                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('event.destroy', $event->id) }}" method="POST">
-                                    <a href="{{ route('event.show', $event->id) }}" class="btn btn-sm btn-dark">SHOW</a>
                                     <a href="{{ route('event.edit', $event->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                     @csrf
                                     @method('DELETE')

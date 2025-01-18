@@ -115,15 +115,15 @@ class DoctorController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         $doctor = Doctor::findOrFail($id);
-        $img = str_replace('events/', '', $doctor->img);
-        $path = 'public/events/' . $img;
+        $img = str_replace('doctors/', '', $doctor->img);
+        $path = 'public/doctors/' . $img;
         if (Storage::exists($path)) {
             Storage::delete($path);
             $event->delete();
             return redirect()->route('dokter.index')->with(['success' => 'Data Berhasil Dihapus!']);
         } else {
             Log::warning("File not found for deletion: " . $path);
-            return redirect()->route('dokter.index')->with(['error' => 'File poster tidak ditemukan. Data gagal dihapus.']);
+            return redirect()->route('dokter.index')->with(['error' => 'File foto dokter tidak ditemukan. Data gagal dihapus.']);
         }
     }
 

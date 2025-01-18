@@ -38,23 +38,20 @@ class CareerController extends Controller
             'title' => 'required',
             'sub_desc' => 'required',
             'description' => 'required',
-            'url' => 'required',
-            'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'status' => 'required',
+            'img' => 'required|image|mimes:jpeg,jpg,png',
         ]);
 
         $img = $request->file('img');
         $careerName = $request->title;
-        $imgName = $careerName . '.' . $request->file('img')->getClientOriginalExtension();
+        $timestamp = now()->format('d-m-Y_H-i-s');
+        $imgName = $careerName . '_' . $timestamp . '.' . $img->getClientOriginalExtension();
         $path = $img->storeAs('careers', $imgName, 'public');
 
         Career::create([
             'title' => $request->title,
             'sub_desc' => $request->sub_desc,
             'description' => $request->description,
-            'url' => $request->url,
             'img' => $path,
-            'status' => $request->status,
         ]);
 
         return redirect()->route('karir.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -89,26 +86,27 @@ class CareerController extends Controller
             'title' => 'required',
             'sub_desc' => 'required',
             'description' => 'required',
-            'url' => 'required',
-            'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'status' => 'required',
+            'img' => 'required|image|mimes:jpeg,jpg,png',
         ]);
 
         $career = Career::findOrFail($id);
 
         if ($request->hasFile('img')) {
             $img = $request->file('img');
-            $img->storeAs('public/careers', $img->hashName());
+            $careerName = $request->title;
+            $timestamp = now()->format('d-m-Y_H-i-s');
+            $imgName = $careerName . '_' . $timestamp . '.' . $img->getClientOriginalExtension();
+            $path = $img->storeAs('careers', $imgName, 'public');
+            if ($career->img) {
 
-            Storage::delete('public/careers/' . $career->img);
+                Storage::delete('public/' . $career->img);
+            }
 
             $career->update([
                 'title' => $request->title,
                 'sub_desc' => $request->sub_desc,
                 'description' => $request->description,
-                'url' => $request->url,
-                'img' => $img->hashName(),
-                'status' => $request->status,
+                'img' => $path
             ]);
         } else {
             $career->update([
@@ -116,7 +114,6 @@ class CareerController extends Controller
                 'sub_desc' => $request->sub_desc,
                 'description' => $request->description,
                 'url' => $request->url,
-                'status' => $request->status,
             ]);
         }
 
@@ -129,8 +126,15 @@ class CareerController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         $career = Career::findOrFail($id);
-        Storage::delete('public/careers/' . $career->image);
-        $career->delete();
-        return redirect()->route('karir.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        $img = str_replace('careers/', '', $career->img);
+        $path = 'public/careers/' . $img;
+        if (Storage::exists($path)) {
+            Storage::delete($path);
+            $career->delete();
+            return redirect()->route('karir.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        } else {
+            Log::warning("File not found for deletion: " . $path);
+            return redirect()->route('karir.index')->with(['error' => 'File poster tidak ditemukan. Data gagal dihapus.']);
+        }
     }
 }

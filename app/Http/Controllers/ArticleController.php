@@ -40,24 +40,35 @@ class ArticleController extends Controller
             'description' => 'required',
             'category' => 'required',
             'author' => 'required',
-            'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-
+            'img' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ]);
 
-        $img = $request->file('img');
-        $articleName = $request->title;
-        $imgName = $articleName . '.' . $request->file('img')->getClientOriginalExtension();
-        $path = $img->storeAs('articles', $imgName, 'public');
+        if ($request->img) {
+            $img = $request->file('img');
+            $articleName = $request->title;
+            $imgName = $articleName . '.' . $request->file('img')->getClientOriginalExtension();
+            $path = $img->storeAs('articles', $imgName, 'public');
 
-        Article::create([
-            'title' => $request->title,
-            'sub_desc' => $request->sub_desc,
-            'description' => $request->description,
-            'category' => $request->category,
-            'author' => $request->author,
-            'img' => $path,
-            'status' => 'publish',
-        ]);
+            Article::create([
+                'title' => $request->title,
+                'sub_desc' => $request->sub_desc,
+                'description' => $request->description,
+                'category' => $request->category,
+                'author' => $request->author,
+                'img' => $path,
+            ]);
+        } else {
+            Article::create([
+                'title' => $request->title,
+                'sub_desc' => $request->sub_desc,
+                'description' => $request->description,
+                'category' => $request->category,
+                'author' => $request->author,
+                'img' => 'default.jpg',
+            ]);
+        }
+
+
 
         return redirect()->route('artikel.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
@@ -100,9 +111,15 @@ class ArticleController extends Controller
 
         if ($request->hasFile('img')) {
             $img = $request->file('img');
-            $img->storeAs('public/articles', $img->hashName());
+            $articleName = $request->title;
+            $timestamp = now()->format('d-m-Y_H-i-s');
+            $imgName = $articleName . '_' . $timestamp . '.' . $img->getClientOriginalExtension();
 
-            Storage::delete('public/articles/' . $article->img);
+            $path = $img->storeAs('articles', $imgName, 'public');
+            if ($article->img && !str_contains($article->img, 'default.jpg')) {
+
+                Storage::delete('public/' . $article->img);
+            }
 
             $article->update([
                 'title' => $request->title,
@@ -110,7 +127,7 @@ class ArticleController extends Controller
                 'description' => $request->description,
                 'category' => $request->category,
                 'author' => $request->author,
-                'img' => $img->hashName(),
+                'img' => $path,
             ]);
         } else {
             $article->update([
@@ -130,9 +147,19 @@ class ArticleController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        $article = Article::findOrFail($id);
-        Storage::delete('public/articles/' . $article->image);
+        $article = article::findOrFail($id);
+
+        if ($article->img && !str_contains($article->img, 'default.jpg')) {
+
+            $path = 'public/' . $article->img;
+            if (Storage::exists($path)) {
+                Storage::delete($path);
+            } else {
+                Log::warning("File not found for deletion: " . $path);
+            }
+        }
         $article->delete();
+
         return redirect()->route('artikel.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

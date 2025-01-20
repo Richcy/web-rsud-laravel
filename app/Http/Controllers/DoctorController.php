@@ -33,23 +33,35 @@ class DoctorController extends Controller
             'office' => 'required',
             'nip' => 'required',
             'sip' => 'required',
-            'img' => 'required|image|mimes:jpeg,jpg,png',
+            'img' => 'nullable|image|mimes:jpeg,jpg,png',
         ]);
 
-        $img = $request->file('img');
-        $doctorName = $request->name;
-        $timestamp = now()->format('d-m-Y_H-i-s');
-        $imgName = $doctorName . '_' . $timestamp . '.' . $img->getClientOriginalExtension();
-        $path = $img->storeAs('doctors', $imgName, 'public');
+        if ($request->img) {
 
-        Doctor::create([
-            'name' => $request->name,
-            'field_id' => $request->field,
-            'office' => $request->office,
-            'nip' => $request->nip,
-            'sip' => $request->sip,
-            'img' => $path,
-        ]);
+            $img = $request->file('img');
+            $doctorName = $request->name;
+            $timestamp = now()->format('d-m-Y_H-i-s');
+            $imgName = $doctorName . '_' . $timestamp . '.' . $img->getClientOriginalExtension();
+            $path = $img->storeAs('doctors', $imgName, 'public');
+
+            Doctor::create([
+                'name' => $request->name,
+                'field_id' => $request->field,
+                'office' => $request->office,
+                'nip' => $request->nip,
+                'sip' => $request->sip,
+                'img' => $path,
+            ]);
+        } else {
+            Doctor::create([
+                'name' => $request->name,
+                'field_id' => $request->field,
+                'office' => $request->office,
+                'nip' => $request->nip,
+                'sip' => $request->sip,
+                'img' => 'doctors/default.jpg'
+            ]);
+        }
 
         return redirect()->route('dokter.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
@@ -75,7 +87,7 @@ class DoctorController extends Controller
             'office' => 'required',
             'nip' => 'required',
             'sip' => 'required',
-            'img' => 'required|image|mimes:jpeg,jpg,png',
+            'img' => 'nullable|image|mimes:jpeg,jpg,png',
         ]);
 
         $doctor = Doctor::findOrFail($id);
@@ -87,7 +99,7 @@ class DoctorController extends Controller
             $imgName = $doctorName . '_' . $timestamp . '.' . $img->getClientOriginalExtension();
 
             $path = $img->storeAs('doctors', $imgName, 'public');
-            if ($doctor->img) {
+            if ($doctor->img && !str_contains($doctor->img, 'doctors/default.jpg')) {
 
                 Storage::delete('public/' . $doctor->img);
             }
@@ -115,16 +127,19 @@ class DoctorController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         $doctor = Doctor::findOrFail($id);
-        $img = str_replace('doctors/', '', $doctor->img);
-        $path = 'public/doctors/' . $img;
-        if (Storage::exists($path)) {
-            Storage::delete($path);
-            $event->delete();
-            return redirect()->route('dokter.index')->with(['success' => 'Data Berhasil Dihapus!']);
-        } else {
-            Log::warning("File not found for deletion: " . $path);
-            return redirect()->route('dokter.index')->with(['error' => 'File foto dokter tidak ditemukan. Data gagal dihapus.']);
+
+        if ($doctor->img && !str_contains($doctor->img, 'doctors/default.jpg')) {
+
+            $path = 'public/' . $doctor->img;
+            if (Storage::exists($path)) {
+                Storage::delete($path);
+            } else {
+                Log::warning("File not found for deletion: " . $path);
+            }
         }
+        $doctor->delete();
+
+        return redirect()->route('dokter.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 
     public function showFieldDoctor(): View

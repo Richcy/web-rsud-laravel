@@ -37,15 +37,13 @@ class EventController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //dd($request->all());
-
         $request->validate([
             'title' => 'required',
             'sub_desc' => 'required',
             'description' => 'required',
             'category' => 'required',
             'url' => 'required',
-            'img' => 'required|image|mimes:jpeg,jpg,png',
+            'img' => 'nullable|image|mimes:jpeg,jpg,png',
             'start_date' => 'nullable',
             'end_date' => 'nullable',
             'start_time' => 'nullable',
@@ -53,25 +51,41 @@ class EventController extends Controller
             'location' => 'required'
         ]);
 
-        $img = $request->file('img');
-        $eventName = $request->title;
-        $timestamp = now()->format('d-m-Y_H-i-s');
-        $imgName = $eventName . '_' . $timestamp . '.' . $img->getClientOriginalExtension();
-        $path = $img->storeAs('events', $imgName, 'public');
+        if ($request->img) {
+            $img = $request->file('img');
+            $eventName = $request->title;
+            $timestamp = now()->format('d-m-Y_H-i-s');
+            $imgName = $eventName . '_' . $timestamp . '.' . $img->getClientOriginalExtension();
+            $path = $img->storeAs('events', $imgName, 'public');
 
-        Event::create([
-            'title' => $request->title,
-            'sub_desc' => $request->sub_desc,
-            'description' => $request->description,
-            'category_id' => $request->category,
-            'url' => $request->url,
-            'img' => $path,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'location' => $request->location,
-        ]);
+            Event::create([
+                'title' => $request->title,
+                'sub_desc' => $request->sub_desc,
+                'description' => $request->description,
+                'category_id' => $request->category,
+                'url' => $request->url,
+                'img' => $path,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+                'location' => $request->location,
+            ]);
+        } else {
+            Event::create([
+                'title' => $request->title,
+                'sub_desc' => $request->sub_desc,
+                'description' => $request->description,
+                'category_id' => $request->category,
+                'url' => $request->url,
+                'img' => 'default.jpg',
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+                'location' => $request->location,
+            ]);
+        }
 
         return redirect()->route('event.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
@@ -107,7 +121,7 @@ class EventController extends Controller
             'description' => 'required',
             'category' => 'required',
             'url' => 'required',
-            'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'img' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
             'start_date' => 'nullable',
             'end_date' => 'nullable',
             'start_time' => 'nullable',
@@ -124,7 +138,7 @@ class EventController extends Controller
             $imgName = $eventName . '_' . $timestamp . '.' . $img->getClientOriginalExtension();
 
             $path = $img->storeAs('events', $imgName, 'public');
-            if ($event->img) {
+            if ($event->img && !str_contains($event->img, 'default.jpg')) {
 
                 Storage::delete('public/' . $event->img);
             }
@@ -165,16 +179,19 @@ class EventController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        $event = Event::findOrFail($id);
-        $img = str_replace('events/', '', $event->img);
-        $path = 'public/events/' . $img;
-        if (Storage::exists($path)) {
-            Storage::delete($path);
-            $event->delete();
-            return redirect()->route('event.index')->with(['success' => 'Data Berhasil Dihapus!']);
-        } else {
-            Log::warning("File not found for deletion: " . $path);
-            return redirect()->route('event.index')->with(['error' => 'File poster tidak ditemukan. Data gagal dihapus.']);
+        $event = event::findOrFail($id);
+
+        if ($event->img && !str_contains($event->img, 'default.jpg')) {
+
+            $path = 'public/' . $event->img;
+            if (Storage::exists($path)) {
+                Storage::delete($path);
+            } else {
+                Log::warning("File not found for deletion: " . $path);
+            }
         }
+        $event->delete();
+
+        return redirect()->route('event.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,7 +27,8 @@ class ArticleController extends Controller
      */
     public function create(): View
     {
-        return view('admin.articles.article.create');
+        $articleCategories = ArticleCategory::where('name', '!=', 'Cimanews')->get();
+        return view('admin.articles.article.create', compact('articleCategories'));
     }
 
     /**
@@ -89,8 +91,8 @@ class ArticleController extends Controller
     public function edit(string $id): View
     {
         $article = Article::findOrFail($id);
-
-        return view('admin.articles.article.edit', compact('article'));
+        $articleCategories = ArticleCategory::where('name', '!=', 'Cimanews')->get();
+        return view('admin.articles.article.edit', compact('article', 'articleCategories'));
     }
 
     /**

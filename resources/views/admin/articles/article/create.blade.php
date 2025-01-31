@@ -7,13 +7,13 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tambah Data Article</h1>
+    <h1 class="h3 mb-2 text-gray-800">Tambah Data Artikel</h1>
     <form action="{{ route('artikel.store') }}" method="POST" enctype="multipart/form-data">
 
         @csrf
         <div class="form-group mb-3">
-            <label class="font-weight-bold">author</label>
-            <input type="text" class="form-control @error('author') is-invalid @enderror" name="author" value="{{ old('author') }}" placeholder="Masukkan author">
+            <label class="font-weight-bold">Penulis</label>
+            <input type="text" class="form-control @error('author') is-invalid @enderror" name="author" value="{{ old('author') }}" placeholder="">
 
             <!-- error message untuk author -->
             @error('author')
@@ -24,8 +24,8 @@
         </div>
 
         <div class="form-group mb-3">
-            <label class="font-weight-bold">title</label>
-            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" placeholder="Masukkan title">
+            <label class="font-weight-bold">Judul</label>
+            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" placeholder="">
 
             <!-- error message untuk title -->
             @error('title')
@@ -36,8 +36,8 @@
         </div>
 
         <div class="form-group mb-3">
-            <label class="font-weight-bold">sub_desc</label>
-            <input type="text" class="form-control @error('sub_desc') is-invalid @enderror" name="sub_desc" value="{{ old('sub_desc') }}" placeholder="Masukkan sub_desc">
+            <label class="font-weight-bold">Deskripsi Singkat</label>
+            <input type="text" class="form-control @error('sub_desc') is-invalid @enderror" name="sub_desc" value="{{ old('sub_desc') }}" placeholder="">
 
             <!-- error message untuk name -->
             @error('sub_desc')
@@ -48,10 +48,13 @@
         </div>
 
         <div class="form-group mb-3">
-            <label class="font-weight-bold">description</label>
-            <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" placeholder="Masukkan description">
+            <label class="font-weight-bold">Deskripsi</label>
+            <textarea class="form-control @error('description') is-invalid @enderror"
+                id="description"
+                name="description"
+                placeholder="">{{ old('description', $article->description ?? '') }}</textarea>
 
-            <!-- error message untuk name -->
+            <!-- Error message for description -->
             @error('description')
             <div class="alert alert-danger mt-2">
                 {{ $message }}
@@ -60,10 +63,17 @@
         </div>
 
         <div class="form-group mb-3">
-            <label class="font-weight-bold">category</label>
-            <input type="text" class="form-control @error('category') is-invalid @enderror" name="category" value="{{ old('category') }}" placeholder="Masukkan category">
+            <label class="font-weight-bold">Kategori</label>
+            <select class="form-control @error('category') is-invalid @enderror" name="category">
+                <option value="">-- Pilih Kategori Artikel --</option>
+                @foreach ($articleCategories as $category)
+                <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>
+                    {{ $category->name }}
+                </option>
+                @endforeach
+            </select>
 
-            <!-- error message untuk category -->
+            <!-- Error message for category -->
             @error('category')
             <div class="alert alert-danger mt-2">
                 {{ $message }}
@@ -72,7 +82,7 @@
         </div>
 
         <div class="form-group mb-3">
-            <label class="font-weight-bold">IMG</label>
+            <label class="font-weight-bold">Poster</label>
             <input type="file" class="form-control @error('img') is-invalid @enderror" name="img">
 
             <!-- error message untuk img -->

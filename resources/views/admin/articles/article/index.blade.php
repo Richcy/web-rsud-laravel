@@ -42,11 +42,11 @@
                         <tr>
                             <th>Action</th>
                             <th>#</th>
-                            <th>Image</th>
-                            <th>Author</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Category</th>
+                            <th>Poster</th>
+                            <th>Penulis</th>
+                            <th>Judul</th>
+                            <th>Deskripsi</th>
+                            <th>Kategori</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -24,11 +24,9 @@
 
     <div class="row ml-0 mb-2">
         <a href="{{ route('karir.create') }}" class="btn btn-primary">
-            <span class="text">Tambah Career</span>
+            <span class="text">Tambah Karir</span>
         </a>
     </div>
-
-
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -43,9 +41,9 @@
                             <th>Action</th>
                             <th>#</th>
                             <th>Status</th>
-                            <th>Image</th>
-                            <th>Title</th>
-                            <th>Description</th>
+                            <th>Poster</th>
+                            <th>Judul</th>
+                            <th>Deskripsi</th>
                         </tr>
                     </thead>
                     <tbody>

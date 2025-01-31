@@ -37,9 +37,12 @@
 
         <div class="form-group mb-3">
             <label class="font-weight-bold">Deskripsi</label>
-            <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" placeholder="">
+            <textarea class="form-control @error('description') is-invalid @enderror"
+                id="description"
+                name="description"
+                placeholder="">{{ old('description', $event->description ?? '') }}</textarea>
 
-            <!-- error message untuk name -->
+            <!-- Error message for description -->
             @error('description')
             <div class="alert alert-danger mt-2">
                 {{ $message }}
